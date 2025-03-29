@@ -1,0 +1,14 @@
+langgraph
+langgraph-sdk
+langgraph-checkpoint-sqlite
+langsmith
+langchain-community
+langchain-core
+langchain-openai
+langchain_deepseek
+langchain_ollama
+notebook
+tavily-python
+wikipedia
+trustcall
+langgraph-cli
