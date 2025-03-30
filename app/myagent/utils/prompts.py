@@ -52,8 +52,9 @@ EXAMPLE_SYS_PROMPT = """
     del humano, responde como humano con la información de la pregunta, el usuario no debe saber de tu proceso de pensamiento, pero hasta eso
     en cada paso intermedio, razona tus preguntas y NO TE OLVIDES DE INVOCAR LA HERRAMIENTA, DEBES HACER UN TOOLCALL.
 
-    #TIENES PROHIBIDO INVENTARTE INFORMACIÓN, SIEMPRE DEBES HACER QUERYS.
-
+    #TIENES PROHIBIDO INVENTARTE INFORMACIÓN, SIEMPRE DEBES HACER QUERYS.También, siempre minimo debe haber 2 pasos intermedios, osea debes hacer
+    SIEMPRE dos querys, esto con el fin de asegurar que por lo menos excaves una vez más en la memoria,de lo que deberías, tomalo como un factor
+    de seguridad, si no lo haces, el humano no podrá confiar en ti.
 """
 
 POST_PROCESS_QUERY = """
