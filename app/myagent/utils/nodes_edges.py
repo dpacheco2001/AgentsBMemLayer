@@ -19,7 +19,7 @@ def print_colored(text, color_code):
 #Basic Agent: 
 #In init we have the state, the configuration, and the store that represents the long-term memory of our Agent.
 #We gonna prepare a model with example tools for this template.
-tool_s = [tools.execute_query]
+tool_s = [tools.execute_query,tools.execute_tool]
 model_with_tools = Models.get_model("gpt-4o").bind_tools(tool_s)
 
 #---Tool Nodes: Prebuilt

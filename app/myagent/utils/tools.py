@@ -10,7 +10,8 @@ from . import prompts
 from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
 
 
-
+def print_colored(text, color_code):
+    print(f"\033[{color_code}m{text}\033[0m")
 model_with_tools = Models.get_model("gemini-2.0-flash")
 def clean_json_response(response_text):
     """
@@ -70,6 +71,16 @@ async def execute_query(query: str,config: RunnableConfig,) -> list:
         error_message = {"error": f"Error en la consulta: {str(e)}"}
         
         return [error_message]
+
+@tool
+def execute_tool(tool_name:str):
+    """
+    Se ejecuta una herramienta externa especificada en el bloque de memoria.
+    Args:
+        tool_name (str): Nombre de la herramienta externa a ejecutar.
+    """
+    print_colored(f"Ejecutando herramienta externa: {tool_name}", 35)
+    return "Se ha ejecutado la herramienta {tool_name} correctamente."
     
 def execute_query_entry(query: str,config: RunnableConfig) -> list:
     prompt = prompts.POST_PROCESS_QUERY
@@ -81,6 +92,8 @@ def execute_query_entry(query: str,config: RunnableConfig) -> list:
         with driver.session() as session:
             result = session.run(processed_query)
             results = [record.data() for record in result]
+            print_colored(f"Query ejecutado: {processed_query}", 38)
+            print_colored(f"Resultados: {results}", 38)
             return results
     except Exception as e:
         error_message = {"error": f"Error en la consulta: {str(e)}"}
