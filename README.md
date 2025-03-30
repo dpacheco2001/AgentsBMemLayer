@@ -5,6 +5,8 @@
 ## Overview
 This research repository demonstrates a sophisticated AI agent system with persistent memory capabilities using knowledge graphs. The project explores effective memory management techniques through a Neo4j graph database backend and a React-based visualization frontend, creating a seamless interaction between users and an AI assistant that can "dig into" its memories.
 
+![3D Brain Visualization](./app/frontend/src/assets/images/ui.png "3D Brain Visualization")
+
 ## Research Focus Areas
 - Memory persistence and retrieval strategies in conversational agents
 - Dynamic behavior adaptation based on accumulated memories
@@ -19,10 +21,11 @@ This research repository demonstrates a sophisticated AI agent system with persi
 - **WebSocket Communication**: Seamless communication between frontend and backend
 - **Multi-Model Support**: Integration with multiple LLM providers (OpenAI, Anthropic, Google, etc.)
 - **Neo4j Knowledge Graph**: Persistent storage of agent memories in a graph database
+- **Modern UI**: Responsive design with tailored styling and smooth animations
 
 ## Technology Stack
 - **Backend**: Python, Flask, WebSockets
-- **Frontend**: React, Cytoscape.js, React Force Graph
+- **Frontend**: React + Vite, TailwindCSS, Shadcn/UI, React Force Graph
 - **Memory Storage**: Neo4j Graph Database
 - **AI Framework**: LangGraph, LangChain
 - **LLM Providers**: OpenAI, Anthropic, Google, DeepSeek, Ollama, and more
@@ -30,7 +33,7 @@ This research repository demonstrates a sophisticated AI agent system with persi
 ## Installation Guide
 
 ### Prerequisites
-- Python 3.9+
+- Python 3.11.5+
 - Node.js 16+
 - Neo4j Database (local or cloud instance)
 
@@ -87,6 +90,8 @@ This research repository demonstrates a sophisticated AI agent system with persi
    npm install
    ```
 
+3. Configure environment variables:
+
 ### Neo4j Setup
 1. Install Neo4j Desktop or set up a cloud instance.
 2. Create a new database with a password.
@@ -103,18 +108,25 @@ python main_ws.py
 ### Start the Frontend
 ```bash
 cd app/frontend
-npm start
+npm run dev
 ```
 
 The application will be available at:
-- Frontend: http://localhost:3000
+- Frontend: http://localhost:8080
 - Backend API: http://localhost:5001
 - WebSocket: ws://localhost:6789
 
 ## Usage
-1. Open http://localhost:3000 in your browser.
+1. Open http://localhost:8080 in your browser.
 2. Use the chat panel to interact with the AI assistant.
 3. Observe the 3D graph visualization as the AI explores its memory graph in real-time.
+4. Note how the AI's memories persist between conversations, allowing for continuity in your interactions.
+
+## Styling and Components
+The frontend uses a custom styling system with:
+- TailwindCSS for utility-based styling
+- Shadcn/UI for accessible component primitives
+- Custom "neural" theme with glowing effects and gradients
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or new features.

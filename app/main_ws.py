@@ -127,7 +127,7 @@ async def process_message(websocket):
         await websocket.send(json.dumps(payload))
 
 def run_websocket_server():
-    loop = asyncio.new_event_loop()
+    loop = asyncio.new_event_loop() 
     asyncio.set_event_loop(loop)
 
     async def start_server():
