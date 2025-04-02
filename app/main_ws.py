@@ -11,10 +11,13 @@ from asyncio import WindowsSelectorEventLoopPolicy
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.store.memory import InMemoryStore
 from neo4j import GraphDatabase
+from langchain_core.runnables import RunnableConfig
 import datetime
 import dotenv
 import os
 dotenv.load_dotenv()
+def print_colored(text, color_code):
+    print(f"\033[{color_code}m{text}\033[0m")
 def convert_datetime(value):
     if hasattr(value, "isoformat"):
         return value.isoformat()
@@ -95,8 +98,9 @@ def get_nodes_by_relation(relation_type):
 def run_flask():
     app.run(port=5001)
 
-
+n = 0
 async def process_message(websocket):
+    global n
     config = {
         "configurable": {"thread_id": codigo, "codigo": codigo},
         "websocket": websocket,
@@ -107,9 +111,27 @@ async def process_message(websocket):
             await websocket.send("Comando de salida recibido.")
             break
 
+        memory_summary = f"Input_usuario:{message}"
+        
+        try:
+            entry_query = """
+                MATCH (n)
+                WHERE n:CasoEstudio OR n:AsistenteVirtual OR n:Ensayo 
+                RETURN n
+            """
+            if n==0:
+                config_runnable = RunnableConfig(configurable=config)
+                print_colored("Ejecutando consulta de entrada...",37)
+                results=await tools.execute_query_entry(entry_query, config=config_runnable)
+                n+=1
+                memory_summary = f"Primera interacción: {message}, elige que nodo te sirve para responder el input y si ves algo que te ayude a responder ve excarvando memorias a partir de las relaciones.Puedes elegir tambien seguir excarvando un nodo que ya habias visto en tus memorias anteriores según el historial de chat:\n{results}"
 
+        except Exception as e:
+            print(f"Error al ejecutar la consulta: {e}")
+          
+        
         response = await template_graph.ainvoke({
-            "messages": HumanMessage(content=message),
+            "messages": [HumanMessage(content=memory_summary)],
             "streaming_enable": True,
         }, config)
 
