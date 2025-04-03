@@ -71,6 +71,13 @@ class Models:
             timeout=timeout,
             max_retries=max_retries,
         )
+        gemini_lite = ChatGoogleGenerativeAI(
+            model="gemini-2.0-flash-lite",
+            temperature=temperature,
+            max_tokens=max_tokens,
+            timeout=timeout,
+            max_retries=max_retries,
+        )
         claude_model = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 
         learnlm = ChatGoogleGenerativeAI(
@@ -91,6 +98,7 @@ class Models:
             "claude_model": claude_model,
             "learnlm": learnlm,
             "deepseek-v3-sambanova": deepseek_v3_sambanova,
+            "gemini-lite": gemini_lite,
         }
 
         return available_models[model_name]

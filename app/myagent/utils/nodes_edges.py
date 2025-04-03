@@ -14,111 +14,89 @@ from langchain_core.messages import SystemMessage, HumanMessage,ToolMessage
 from langgraph.prebuilt import ToolNode
 from langgraph.types import Command
 import re
+import json
 
-
-#Utils
+#---------------Utils
 def print_colored(text, color_code):
     print(f"\033[{color_code}m{text}\033[0m")
-def unwrap_execute_query(texto):
-    pattern = r"`{3}cypher\s*(.*?)\s*`{3}"  
-    print_colored(f"Buscando query en texto: \n{texto}\n", 32)
-    match = re.search(pattern, texto, re.DOTALL)
+def unwrap_memory_query(texto):
+    pattern = r"(?:```|´´´)\s*(Episodica|Semantica)\s*(.*?)\s*(?:```|´´´)"
+    match = re.search(pattern, texto, re.DOTALL | re.IGNORECASE)
+    
     if match:
-        print_colored(f"Query encontrado: {match.group(1)}", 32)
-        return match.group(1).strip()
-    return None
-tool_s = [tools.execute_query,tools.execute_tool]
-#Basic Agent: 
-#In init we have the state, the configuration, and the store that represents the long-term memory of our Agent.
-#We gonna prepare a model with example tools for this template.
-PRINCIPAL_MODEL_NAME="deepseek-v3"
-using_deepseek = False
-if (PRINCIPAL_MODEL_NAME.startswith("deepseek") ):
-    using_deepseek = True
-    print_colored(f"Using DeepSeek model: {PRINCIPAL_MODEL_NAME}", 32)
-    model_with_tools= Models.get_model(PRINCIPAL_MODEL_NAME)
-else:
-    model_with_tools = Models.get_model(PRINCIPAL_MODEL_NAME).bind_tools(tool_s)
+        tipo = match.group(1).strip().lower()
+        contenido = match.group(2).strip()
+        modo = "episodic" if tipo == "episodica" else "semantic"
+        return modo, contenido
+    
+    return None, None
+
+def vector_search_nodes(type:str,query_text:str,k:int,driver,client):
+    if type == "episodic":
+        indexName = "episodic_index"
+    elif type == "semantic":
+        indexName = "semantic_index"
 
 
-#---Tool Nodes: Prebuilt
-def handle_tool_error(state: OverallState) -> dict:
-    """
-    Maneja errores de herramientas en el flujo de trabajo del grafo.
-
-    :param state: El state debe contener por lo menos:
-                  - "messages": Una lista de mensajes, donde el último mensaje será la respuesta de la toolcall, el cual será
-                  el error.
-    :return: En vez de parar la ejecución,  empaquetamos este error en un ToolMessage para mandarselo al agente.
-    """
-    tool_calls = state["messages"][-1].tool_calls
-    return {
-        "messages": [
-            ToolMessage(
-                content=f"Error: please fix your mistakes.",
-                tool_call_id=tc["id"],
-            )
-            for tc in tool_calls
-        ]
-    }
-
-
-def create_tool_node_with_fallback(tools: list) -> dict:
-    """
-    Crea un nodo con una lista de herramientas y agrega fallbacks
-    para manejar errores en caso de fallos durante la ejecución.
-    :param tools: Una lista de herramientas (tools) que se asignarán al nodo.
-    :return: Un nodo de herramientas capaz de iterar entre fallbacks para corregirlos
-    """
-    return ToolNode(tools).with_fallbacks(
-        [RunnableLambda(handle_tool_error)], exception_key="error"
+    openai_response = client.embeddings.create(
+        input=query_text,
+        model="text-embedding-3-small"
     )
+    queryVector = openai_response.data[0].embedding
+    query = f"""
+    CALL db.index.vector.queryNodes('{indexName}', {k}, {json.dumps(queryVector)})
+    YIELD node, score
+    RETURN node, score
+    """
+    try:
+        with driver.session() as session:
+            result = session.run(query)
+            records = [record.data() for record in result]
+            resultados= []
+            for record in records:
+                node = record["node"]
+                node_copy = dict(node)
+                if "embedding" in node_copy:
+                    del node_copy["embedding"]
+        
+                resultados.append(node_copy)
+        return {"results": resultados}
+    except Exception as e:
+        return {"error": f"Error executing vector search: {str(e)}"}
+
+PRINCIPAL_MODEL_NAME="deepseek-v3-sambanova"
+print_colored(f"Using model: {PRINCIPAL_MODEL_NAME}", 32)
+model_with_tools= Models.get_model(PRINCIPAL_MODEL_NAME)
+
 
 async def dig_into_memories(state: OverallState)-> dict:
     conversation_summary = []
     messages= state["messages"]
-    if not using_deepseek:
-        sys_prompt= prompts.EXAMPLE_SYS_PROMPT
-        for msg in messages:
-            if msg.type == "human":
-                conversation_summary.append(f"User: {msg.content}")
-            elif msg.type == "ai":
-                if hasattr(msg, "tool_calls") and msg.tool_calls and (not msg.content or msg.content.strip() == ""):
-                    tool_names = [tc.get("name", "unknown_tool") for tc in msg.tool_calls if "name" in tc]
-                    conversation_summary.append(f"ToolCall: {', '.join(tool_names)}")
-                else:
-                    conversation_summary.append(f"Assistant: {msg.content}")
-            elif msg.type == "tool":
-                tool_name = getattr(msg, "name", "unknown_tool")
-                conversation_summary.append(f"Tool Message ({tool_name}): {msg.content}")
-            else:
-                conversation_summary.append(f"{msg.type.capitalize()}: {msg.content}")
-    else:
-        sys_prompt= prompts.DEEPSEEK_SYS_PROMPT
-        for msg in messages:
-            if msg.type == "human":
-                if msg.content.startswith("ToolMessage:"):
-                    conversation_summary.append(f"ToolMessage: {msg.content}")
-                else:
-                    conversation_summary.append(f"User: {msg.content}")
-            elif msg.type == "ai":
-                query = unwrap_execute_query(msg.content)
-                if query:
-                    conversation_summary.append(f"Pensamiento intermedio: {msg.content} ")
-                    conversation_summary.append(f"ToolCall: {query}")
-                else:
-                    conversation_summary.append(f"Assistant: {msg.content}")
+    sys_prompt= prompts.MAIN_AGENT_SYS_PROMPT
+    #Aca falta el resumen de la conversación,si es que hay más de 4 mensajes.
+    for msg in messages[-4:]:
+        if msg.type == "human":
+            conversation_summary.append(f"Input: {msg.content}")
+        elif msg.type == "ai":
+            conversation_summary.append(f"Assistant: {msg.content}")
                 
     
     conversation_summary = "\n".join(conversation_summary)
-
-
-
     print_colored(f"---------------CONVERSATION SUMMARY------", 32)
     print_colored(conversation_summary, 32)
     print_colored(f"---------------CONVERSATION SUMMARY------", 32)
-    
-    response= model_with_tools.invoke([SystemMessage(content=sys_prompt),HumanMessage(content=str(conversation_summary))])
+    informacion_trabajo= state["informacion_trabajo"]
+    #Construyendo el input:
+    #1. Quien es robert
+    #2. Historial de la conversación
+    #3. Informacion de trabajo
+
+    input_prompt=f"""
+        >Quien eres? Eres robert, un asistente que ayudará al estudiante a resolver sus dudas.Estan en el laboratorio de materiales de la PUCP.
+        >Historial de la conversación: {conversation_summary}
+        >Informacion de trabajo: {informacion_trabajo}
+    """
+    response= model_with_tools.invoke([SystemMessage(content=sys_prompt),HumanMessage(content=str(input_prompt))])
     return {"messages": response}
 
 
@@ -127,32 +105,28 @@ async def analazing_next_node(state: OverallState,config: RunnableConfig):
     messages = state["messages"]
     n_node= "__end__"
     ai_message = messages[-1]
-    if not using_deepseek:
-        if hasattr(ai_message, "tool_calls") and len(ai_message.tool_calls) > 0:
-            return {
-                "n_node":"tools2"
+    configurable = config["configurable"]
+    driver = configurable["driver"]
+    client = configurable["client"]
+    print_colored(f"Analizing next node...", 32)
+    memory_type,query = unwrap_memory_query(ai_message.content)
+    if memory_type and query:
+        print_colored(f"Found memory query:",32)
+        print_colored(f"Memory type: {memory_type}", 32)
+        print_colored(f"Query: {query}", 32)
+        #Performar la búsqueda vectorial
+        k = 5
+        results = vector_search_nodes(memory_type,query,k,driver,client)
+        if results:
+            print_colored(f"Results: {results}", 32)
+            return{
+                "n_node": "dig_into_memories",
+                "informacion_trabajo": f"Información que pediste: \n{results}"
             }
-        return  {
-            "n_node": "__end__"
-        }
-    else:
-        print_colored(f"Usando deepseek {PRINCIPAL_MODEL_NAME}, se procederá a ejecutar la query si es que la hay...", 32)
-        query = unwrap_execute_query(ai_message.content)
-        tool_message=f"ToolMessage: No results found for query: {query}"
-        if query:
-            results=await tools.execute_query_entry(query,config=config,first_entry=False)
-            if results:
-                tool_message=f"ToolMessage: {results}"     
-                print_colored(f"{tool_message}", 37) 
-            return {
-                "messages": [HumanMessage(content=tool_message)],
-                "n_node": "dig_into_memories"
-            }
-        else:
-            print_colored(f"No query found in the message", 31)
-            return {
-                "n_node": "__end__"
-            }
+        
+    return {
+        "n_node": "__end__"
+    }
     
 def dig_into_memories_tool_condition(state: OverallState):
     next_node = state["n_node"]
