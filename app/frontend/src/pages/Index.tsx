@@ -150,7 +150,7 @@ const Index = () => {
       {/* Chat Section */}
       <div className="w-96 p-4 flex flex-col h-full z-10">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-xl font-semibold text-white">Brain AI Chat</h1>
+          <h1 className="text-xl font-semibold text-white">BMEMLayer-V.001</h1>
           <Link to="/graph-editor">
             <Button variant="outline" size="sm" className="flex items-center gap-2">
               <Database size={16} />

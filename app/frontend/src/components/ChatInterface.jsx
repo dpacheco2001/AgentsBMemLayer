@@ -11,7 +11,7 @@ const ChatMessage = ({ message }) => {
     <div className={`chat-message ${isUser ? 'user-message' : 'ai-message'}`}>
       <div className="flex items-center mb-1">
         <span className={`font-semibold ${isUser ? 'text-white' : 'text-brain-active'}`}>
-          {isUser ? 'You' : 'Neural Assistant'}
+          {isUser ? 'You' : 'BMEM Assistant'}
         </span>
       </div>
       <div className="text-white leading-relaxed">{message.content}</div>
@@ -37,7 +37,7 @@ const ChatInterface = ({
   return (
     <div className="chat-container p-4 flex flex-col h-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white">Neural Assistant</h2>
+        <h2 className="text-xl font-bold text-white">BMEM Assistant</h2>
         <div className="flex items-center">
           <span className={`status-indicator ${isConnected ? 'status-connected' : 'status-disconnected'}`}></span>
           <span className="text-sm text-gray-300">{isConnected ? 'Connected' : 'Disconnected'}</span>
@@ -55,7 +55,7 @@ const ChatInterface = ({
         ) : (
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-400 text-center font-neural">
-              No messages yet. Start a conversation with your Neural Assistant!
+              No messages yet. Start a conversation with your BMEM Assistant!
             </p>
           </div>
         )}
