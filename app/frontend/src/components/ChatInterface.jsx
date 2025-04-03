@@ -3,8 +3,6 @@ import React, { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
-
 
 const ChatMessage = ({ message }) => {
   const isUser = message.sender === 'user';
@@ -13,7 +11,7 @@ const ChatMessage = ({ message }) => {
     <div className={`chat-message ${isUser ? 'user-message' : 'ai-message'}`}>
       <div className="flex items-center mb-1">
         <span className={`font-semibold ${isUser ? 'text-white' : 'text-brain-active'}`}>
-          {isUser ? 'Tú' : 'AI'}
+          {isUser ? 'You' : 'Neural Assistant'}
         </span>
       </div>
       <div className="text-white leading-relaxed">{message.content}</div>
@@ -39,10 +37,10 @@ const ChatInterface = ({
   return (
     <div className="chat-container p-4 flex flex-col h-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white">¡Chatea!</h2>
+        <h2 className="text-xl font-bold text-white">Neural Assistant</h2>
         <div className="flex items-center">
           <span className={`status-indicator ${isConnected ? 'status-connected' : 'status-disconnected'}`}></span>
-          <span className="text-sm text-gray-300">{isConnected ? 'Conectado' : 'Desconectado'}</span>
+          <span className="text-sm text-gray-300">{isConnected ? 'Connected' : 'Disconnected'}</span>
         </div>
       </div>
       
@@ -57,7 +55,7 @@ const ChatInterface = ({
         ) : (
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-400 text-center font-neural">
-              No hay mensajes aún. Comienza una conversación!
+              No messages yet. Start a conversation with your Neural Assistant!
             </p>
           </div>
         )}
@@ -65,13 +63,13 @@ const ChatInterface = ({
       
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="chat-input-container flex items-center">
-          <Input
+          <input
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Escribe aca..."
+            placeholder="Type your message here..."
             disabled={!isConnected}
-            className="chat-input bg-transparent border-none text-white placeholder:text-gray-500"
+            className="chat-input text-black placeholder:text-gray-500"
           />
           <Button 
             type="submit" 

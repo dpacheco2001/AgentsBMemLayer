@@ -4,6 +4,9 @@ import { connectWebSocket, disconnectWebSocket, sendMessage } from '../services/
 import BrainVisualizer from '../components/BrainVisualization';
 import ChatInterface from '../components/ChatInterface';
 import StarryBackground from '../components/StarryBackground';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Database } from 'lucide-react';
 
 const Index = () => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -146,6 +149,16 @@ const Index = () => {
       
       {/* Chat Section */}
       <div className="w-96 p-4 flex flex-col h-full z-10">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-xl font-semibold text-white">Brain AI Chat</h1>
+          <Link to="/graph-editor">
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Database size={16} />
+              <span>Graph Editor</span>
+            </Button>
+          </Link>
+        </div>
+        
         <ChatInterface
           messages={chatMessages}
           inputMessage={inputMessage}
@@ -169,7 +182,7 @@ const Index = () => {
         {selectedNode && (
           <div className="absolute top-4 right-4 bg-secondary/90 p-4 rounded-xl border border-brain-secondary backdrop-blur-lg max-w-md z-20">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-medium text-white">Propiedades del nodo</h3>
+              <h3 className="text-lg font-medium text-white">Node Properties</h3>
               <button 
                 onClick={() => setSelectedNode(null)}
                 className="text-white hover:text-gray-300"
