@@ -16,10 +16,11 @@ import datetime
 import dotenv
 import os
 from openai import OpenAI
-
-client = OpenAI()
-
 dotenv.load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
+
+
 
 def print_colored(text, color_code):
     print(f"\033[{color_code}m{text}\033[0m")
