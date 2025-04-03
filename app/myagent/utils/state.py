@@ -14,7 +14,6 @@ from langgraph.graph import MessagesState
 class OverallState(MessagesState):
     #We can add more attributes here
     user_id : str
-    n_node:str
 
 
 

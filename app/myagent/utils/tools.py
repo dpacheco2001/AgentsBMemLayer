@@ -82,37 +82,21 @@ def execute_tool(tool_name:str):
     print_colored(f"Ejecutando herramienta externa: {tool_name}", 35)
     return "Se ha ejecutado la herramienta {tool_name} correctamente."
     
-async def execute_query_entry(query: str,config: RunnableConfig,first_entry=False) -> list:
-    """
-    Herramienta: Ejecuta un query Cypher en la base de datos Neo4j.
-    
-    Args:
-        query (str): El query Cypher a ejecutar.
-    Returns:
-        list: Lista de registros devueltos, donde cada registro es un diccionario.
-              Si hay un error, devuelve una lista con un único diccionario que contiene el mensaje de error.
-    """
+def execute_query_entry(query: str,config: RunnableConfig) -> list:
+    prompt = prompts.POST_PROCESS_QUERY
+    response = model_with_tools.invoke([SystemMessage(content=prompt), HumanMessage(content=str(query))])
+    processed_query = response.content
     configurable = config["configurable"]
-    websocket = configurable["websocket"]
     driver = configurable["driver"]
-
-    prompt_extract = prompts.EXTRACT_NODES_AND_RELATIONSHIPS_NAMES
-    prompt_summary = prompts.EXTRACT_SUMMARY
     try:
         with driver.session() as session:
-            print_colored(f"Ejecutando consulta de entrada...{query}",37)
-            result = session.run(query)
+            result = session.run(processed_query)
             results = [record.data() for record in result]
-            
-            extract_name_and_relationships_result= model_with_tools.invoke([SystemMessage(content=prompt_extract), HumanMessage(content=str(results))])        
-            names_and_relationships = extract_name_and_relationships_result.content
-            names_and_relationships=clean_json_response(names_and_relationships)
-            summary = model_with_tools.invoke([SystemMessage(content=prompt_summary), HumanMessage(content=str(results))])
-            summary = clean_json_response(summary.content)
-            print_colored(f"Resultados de la consulta de entrada: {summary}", 35)
-            await websocket.send(names_and_relationships)
-            return summary
+            print_colored(f"Query ejecutado: {processed_query}", 38)
+            print_colored(f"Resultados: {results}", 38)
+            return results
     except Exception as e:
         error_message = {"error": f"Error en la consulta: {str(e)}"}
         
         return [error_message]
+
