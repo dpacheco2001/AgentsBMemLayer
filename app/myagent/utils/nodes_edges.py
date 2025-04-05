@@ -64,7 +64,7 @@ def vector_search_nodes(type:str,query_text:str,k:int,driver,client):
     except Exception as e:
         return {"error": f"Error executing vector search: {str(e)}"}
 
-PRINCIPAL_MODEL_NAME="deepseek-v3-sambanova"
+PRINCIPAL_MODEL_NAME="gemini-2.0-flash"
 print_colored(f"Using model: {PRINCIPAL_MODEL_NAME}", 32)
 model_with_tools= Models.get_model(PRINCIPAL_MODEL_NAME)
 
