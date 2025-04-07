@@ -1,4 +1,4 @@
-# NMEM Layer Architecture
+# BMEM Layer Architecture
 
 ### Made by Diego Pacheco
 
