@@ -1,4 +1,4 @@
-# Deep Dive: Agents Memory Layer
+# BMEM Layer Architecture
 
 ### Made by Diego Pacheco
 
