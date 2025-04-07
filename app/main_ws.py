@@ -101,13 +101,12 @@ def get_graph_data():
                 r = record["r"]
                 link_properties = dict(r._properties)
                 link_properties = convert_datetime(link_properties)
-                # Supongamos que ya tienes acceso a los nodos correspondientes
                 links.append({
                     "source": str(r.start_node.id),
                     "target": str(r.end_node.id),
                     "type": r.type,
                     "properties": link_properties,
-                    "id": r.element_id  # O lo que uses para identificar la relación
+                    "id": r.element_id  
                 })
             nodes_list = list(nodes.values())
             return jsonify({"nodes": nodes_list, "links": links})
