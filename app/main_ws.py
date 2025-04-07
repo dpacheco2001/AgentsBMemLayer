@@ -36,12 +36,6 @@ def convert_datetime(value):
         return value
 
 def format_value(value):
-    """Formatea el valor para la query Cypher:
-       - Números sin comillas
-       - Booleanos en minúscula
-       - Strings entre comillas (escapando comillas simples)
-       - Si es JSON válido, se envía tal cual.
-    """
     if value is None:
         return "null"
     if not isinstance(value, str):
@@ -58,13 +52,13 @@ def format_value(value):
         json.loads(value)
         return value
     except Exception:
-        # Escapar comillas simples
+
         return "'" + value.replace("'", "\\'") + "'"
 
-# Configurar asyncio para Windows (si aplica)
+
 asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())
 
-# Variables globales y configuración
+
 codigo = "20190051"
 in_memory_checkpointer = MemorySaver()
 long_term_in_memory = InMemoryStore()
@@ -176,9 +170,7 @@ def update_node(node_id):
                 propQuery = f"MATCH (n) WHERE ID(n) = {node_id} SET n.{key} = {format_value(value)}"
                 print_colored(f"Ejecutando consulta para actualizar propiedades: {propQuery}", 35)
                 session.run(propQuery)
-            # Si se envían etiquetas, actualizarlas
             if labels:
-                # Nota: Este método reemplaza las etiquetas existentes por las nuevas
                 setQuery = f"MATCH (n) WHERE ID(n) = {node_id} SET n:{':'.join(labels)}"
                 print_colored(f"Ejecutando consulta para actualizar etiquetas: {setQuery}", 35)
                 session.run(setQuery)
@@ -222,7 +214,7 @@ def create_relationship():
 def generate_embedding(label):
     try:
         print("Generando embedding para label:", label)
-        # Buscar nodos con el label dado que no tengan la propiedad 'embedding'
+
         query = f"MATCH (n:`{label}`) WHERE n.embedding IS NULL RETURN n"
         with driver.session() as session:
             result = session.run(query)
@@ -232,7 +224,6 @@ def generate_embedding(label):
                 descripcion = n._properties.get("descripcion")
                 if not descripcion:
                     continue
-                # Llamada a OpenAI usando el nuevo cliente y modelo
                 openai_response = client.embeddings.create(
                     input=descripcion,
                     model="text-embedding-3-small"
@@ -338,7 +329,6 @@ def vector_search_nodes():
     if not indexName or k is None or queryVector is None:
         return jsonify({"error": "Missing required parameters: indexName, numberOfNearestNeighbours and queryVector"}), 400
 
-    # Construir la query utilizando json.dumps para el vector
     query = f"""
     CALL db.index.vector.queryNodes('{indexName}', {k}, {json.dumps(queryVector)})
     YIELD node, score
@@ -353,7 +343,7 @@ def vector_search_nodes():
         return jsonify({"error": f"Error executing vector search: {str(e)}"}), 400
 
     
-# -------------------- No tocar (WebSocket y main) --------------------
+
 
 def run_flask():
     app.run(port=5001)
