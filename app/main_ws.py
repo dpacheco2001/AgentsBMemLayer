@@ -215,13 +215,13 @@ def generate_embedding(label):
     try:
         print("Generando embedding para label:", label)
 
-        query = f"MATCH (n:`{label}`) WHERE n.embedding IS NULL RETURN n"
+        query = f"MATCH (n:{label}) WHERE n.embedding IS NULL RETURN n"
         with driver.session() as session:
             result = session.run(query)
             nodes_to_update = [record["n"] for record in result]
             updated_count = 0
             for n in nodes_to_update:
-                descripcion = n._properties.get("descripcion")
+                descripcion = n._properties.get("description")
                 if not descripcion:
                     continue
                 openai_response = client.embeddings.create(

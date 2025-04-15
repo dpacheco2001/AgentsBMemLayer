@@ -403,7 +403,7 @@ const GraphEditor = () => {
       </header>
       
       <div className="flex flex-1 overflow-hidden">
-        <aside className="w-80 border-r border-brain-secondary bg-secondary/30 backdrop-blur-sm p-4 z-10 overflow-y-auto">
+        <aside className="w-150 border-r border-brain-secondary bg-secondary/30 backdrop-blur-sm p-4 z-10 overflow-y-auto">
           <Tabs defaultValue="nodeLabels">
             <TabsList className="w-full mb-4">
               <TabsTrigger value="nodeLabels" className="flex-1">Labels</TabsTrigger>
