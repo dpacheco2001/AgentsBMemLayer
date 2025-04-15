@@ -310,7 +310,10 @@ const GraphEditor = () => {
   const handleDeleteRelationship = async (relationshipId: number) => {
     if (!relationshipId) return;
     try {
-      const query = `MATCH ()-[r]->() WHERE ID(r) = ${relationshipId} DELETE r`;
+      const relationshipElementId = String(relationshipId);
+      const parts = relationshipElementId.split(":");
+      const relationshipIdParsed = parts[parts.length - 1];
+      const query = `MATCH ()-[r]->() WHERE ID(r) = ${relationshipIdParsed} DELETE r`;
       await executeQuery(query);
       setSelectedRelationship(null);
     } catch (error) {

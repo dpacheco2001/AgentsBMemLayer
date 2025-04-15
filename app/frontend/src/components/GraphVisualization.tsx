@@ -45,7 +45,7 @@ interface GraphVisualizationProps {
 function getClusterCenters(labels: string[], width: number, height: number) {
   const centerX = width / 2;
   const centerY = height / 2;
-  const radius = Math.min(width, height) * 0.3;
+  const radius = Math.min(width, height) * 0.4; // Aumentado de 0.3 a 0.4 para mayor separación
   const angleStep = (2 * Math.PI) / labels.length;
 
   const centers: Record<string, { x: number; y: number }> = {};
@@ -61,9 +61,10 @@ function getClusterCenters(labels: string[], width: number, height: number) {
 
 /**
  * Posiciona cada nodo cerca del centro fijo de su label,
- * con un pequeño offset aleatorio para evitar que se superpongan.
+ * con un algoritmo que evita superposiciones entre nodos.
  */
 function clusterLayout(nodes: Node[], width: number, height: number) {
+  // Identificar etiquetas únicas
   const labelSet = new Set<string>();
   nodes.forEach((n) => {
     if (n.labels) {
@@ -72,29 +73,94 @@ function clusterLayout(nodes: Node[], width: number, height: number) {
   });
   const uniqueLabels = Array.from(labelSet);
 
+  // Si no hay etiquetas, usar un layout radial simple
   if (uniqueLabels.length === 0) {
-    const singlePositions: Record<string, { x: number; y: number }> = {};
-    const cx = width / 2;
-    const cy = height / 2;
-    nodes.forEach((n) => {
-      singlePositions[n.elementId] = { x: cx, y: cy };
-    });
-    return singlePositions;
+    return createRadialLayout(nodes, width, height);
   }
 
+  // Obtener los centros para cada grupo de etiquetas
   const centers = getClusterCenters(uniqueLabels, width, height);
-  const positions: Record<string, { x: number; y: number }> = {};
-  nodes.forEach((node) => {
+  
+  // Agrupar nodos por etiqueta
+  const nodesByLabel: Record<string, Node[]> = {};
+  uniqueLabels.forEach(label => {
+    nodesByLabel[label] = [];
+  });
+  
+  nodes.forEach(node => {
     const label = node.labels?.[0] || 'default';
-    const c = centers[label] || { x: width / 2, y: height / 2 };
-    const maxOffset = 80; // Aumenta este valor para mayor separación
-    const angle = Math.random() * 2 * Math.PI;
-    const r = Math.random() * maxOffset;
+    if (nodesByLabel[label]) {
+      nodesByLabel[label].push(node);
+    } else {
+      nodesByLabel['default'] = nodesByLabel['default'] || [];
+      nodesByLabel['default'].push(node);
+    }
+  });
+
+  // Crear posiciones iniciales para todos los nodos
+  const positions: Record<string, { x: number; y: number }> = {};
+  
+  // Para cada grupo de etiquetas, distribuir los nodos en forma de círculo o espiral
+  Object.entries(nodesByLabel).forEach(([label, groupNodes]) => {
+    if (groupNodes.length === 0) return;
+    
+    const center = centers[label] || { x: width / 2, y: height / 2 };
+    
+    // Calcular radio para la distribución
+    const nodeRadius = 25; // Radio del nodo (incluyendo margen)
+    const minRadius = nodeRadius * 2;
+    
+    if (groupNodes.length === 1) {
+      // Si solo hay un nodo, ponerlo en el centro del grupo
+      positions[groupNodes[0].elementId] = { x: center.x, y: center.y };
+    } else {
+      // Distribuir los nodos en círculo o espiral
+      const angleStep = (2 * Math.PI) / groupNodes.length;
+      
+      // Aumentar el radio según la cantidad de nodos
+      const circleRadius = Math.max(minRadius * 2, minRadius + (groupNodes.length * 4));
+      
+      groupNodes.forEach((node, i) => {
+        const angle = i * angleStep;
+        // Añadir variación para evitar patrones demasiado regulares
+        const r = circleRadius + (Math.random() * nodeRadius * 0.8);
+        positions[node.elementId] = {
+          x: center.x + r * Math.cos(angle),
+          y: center.y + r * Math.sin(angle)
+        };
+      });
+    }
+  });
+
+  return positions;
+}
+
+/**
+ * Crea un layout radial para cuando no hay etiquetas definidas
+ */
+function createRadialLayout(nodes: Node[], width: number, height: number) {
+  const positions: Record<string, { x: number; y: number }> = {};
+  const centerX = width / 2;
+  const centerY = height / 2;
+  
+  if (nodes.length === 1) {
+    positions[nodes[0].elementId] = { x: centerX, y: centerY };
+    return positions;
+  }
+  
+  const radiusBase = Math.min(width, height) * 0.35;
+  const angleStep = (2 * Math.PI) / nodes.length;
+  
+  nodes.forEach((node, i) => {
+    const angle = i * angleStep;
+    // Añadir variación al radio para evitar una forma perfectamente circular
+    const radius = radiusBase * (0.9 + Math.random() * 0.2);
     positions[node.elementId] = {
-      x: c.x + r * Math.cos(angle),
-      y: c.y + r * Math.sin(angle),
+      x: centerX + radius * Math.cos(angle),
+      y: centerY + radius * Math.sin(angle)
     };
   });
+  
   return positions;
 }
 

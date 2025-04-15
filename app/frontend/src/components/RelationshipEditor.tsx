@@ -96,18 +96,23 @@ const RelationshipEditor: React.FC<RelationshipEditorProps> = ({
 
   const handleSave = async () => {
     try {
-      const relationshipId = relationship.id;
+      const relationshipelementId = String(relationship.id);
+      const parts = relationshipelementId.split(":");
+      const relationshipId = parts[parts.length - 1];
       if (!relationshipId) {
         toast.error('Relationship ID is missing');
         return;
       }
       let query = '';
+      
+
       // Si el tipo ha cambiado, necesitamos recrear la relación (cambio de tipo no se puede modificar directamente)
       if (type !== relationship.type) {
+        console.log("RelationshipID", relationshipId);
         query = `
           MATCH (a)-[r]->(b) 
           WHERE ID(r) = ${relationshipId} 
-          WITH a, b 
+          WITH a, b, r
           DELETE r 
           CREATE (a)-[new:${type}]->(b) 
           SET new = ${JSON.stringify(
@@ -128,8 +133,9 @@ const RelationshipEditor: React.FC<RelationshipEditorProps> = ({
         const propsArray = properties
           .map(p => `r.${p.key} = ${formatValueForCypher(p.value)}`)
           .join(', ');
+        console.log("RelationshipID", relationshipId);
         if (propsArray) {
-          query = `MATCH ()-[r]->() WHERE elementId(r) = '${relationshipId}' SET ${propsArray} RETURN r`;
+          query = `MATCH ()-[r]->() WHERE ID(r) = ${relationshipId} SET ${propsArray} RETURN r`;
           const result = await executeQuery(query);
           if (result.error) {
             toast.error(`Error updating relationship: ${result.error}`);
