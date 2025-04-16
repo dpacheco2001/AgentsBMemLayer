@@ -188,6 +188,9 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
   // Posiciones de los nodos calculadas por cluster layout (clave: elementId)
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
 
+  // Referencia para las posiciones personalizada de los nodos
+  const positionsRef = useRef<Record<string, { x: number; y: number }>>({});
+
   // Drag y hover, usando elementId
   const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
@@ -225,10 +228,30 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
 
   useEffect(() => {
     if (nodesToRender.length === 0) return;
+    
     const width = containerRef.current?.clientWidth || 800;
     const height = containerRef.current?.clientHeight || 600;
-    const newPositions = clusterLayout(nodesToRender, width, height);
-    setNodePositions(newPositions);
+    
+    // Solo calcular layout para nodos que no tienen posición guardada
+    const nodosNuevos = nodesToRender.filter(node => !positionsRef.current[node.elementId]);
+    
+    if (nodosNuevos.length > 0) {
+      // Solo calcular nuevas posiciones para los nodos nuevos
+      const newPositionsForNewNodes = clusterLayout(nodosNuevos, width, height);
+      
+      // Combinar posiciones existentes con las nuevas
+      setNodePositions(prev => {
+        const combinedPositions = { ...prev, ...newPositionsForNewNodes };
+        // Actualizar la referencia permanente
+        positionsRef.current = combinedPositions;
+        return combinedPositions;
+      });
+    } else if (Object.keys(nodePositions).length === 0) {
+      // Inicialización primera vez - solo si no hay posiciones todavía
+      const initialPositions = clusterLayout(nodesToRender, width, height);
+      setNodePositions(initialPositions);
+      positionsRef.current = initialPositions;
+    }
   }, [nodesToRender]);
 
   useEffect(() => {
@@ -564,13 +587,18 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
     if (draggedNodeId !== null) {
       const deltaX = (e.clientX - dragStart.x) / zoom;
       const deltaY = (e.clientY - dragStart.y) / zoom;
-      setNodePositions((prev) => ({
-        ...prev,
-        [draggedNodeId]: {
-          x: prev[draggedNodeId].x + deltaX,
-          y: prev[draggedNodeId].y + deltaY,
-        },
-      }));
+      setNodePositions((prev) => {
+        const updated = {
+          ...prev,
+          [draggedNodeId]: {
+            x: prev[draggedNodeId].x + deltaX,
+            y: prev[draggedNodeId].y + deltaY,
+          },
+        };
+        // Actualizar también la referencia permanente
+        positionsRef.current = updated;
+        return updated;
+      });
       setDragStart({ x: e.clientX, y: e.clientY });
     } else {
       const deltaX = e.clientX - dragStart.x;
