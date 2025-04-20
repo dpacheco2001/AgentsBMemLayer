@@ -195,8 +195,24 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
   // Estados para pan y zoom
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [offset, setOffset] = useState(() => {
+    try {
+      const savedOffset = localStorage.getItem("viewOffset");
+      return savedOffset ? JSON.parse(savedOffset) : { x: 0, y: 0 };
+    } catch (error) {
+      console.error("Error loading offset from localStorage:", error);
+      return { x: 0, y: 0 };
+    }
+  });
+  const [zoom, setZoom] = useState(() => {
+    try {
+      const savedZoom = localStorage.getItem("viewZoom");
+      return savedZoom ? parseFloat(savedZoom) : 1;
+    } catch (error) {
+      console.error("Error loading zoom from localStorage:", error);
+      return 1;
+    }
+  });
 
   // Posiciones de los nodos calculadas por cluster layout (clave: elementId)
   const [nodePositions, setNodePositions] = useState<
@@ -217,6 +233,37 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
 
   const [nodesToRender, setNodesToRender] = useState<Node[]>([]);
   const [linksToRender, setLinksToRender] = useState<Link[]>([]);
+
+  // Función para guardar las posiciones en localStorage
+  const savePositionsToLocalStorage = (
+    positions: Record<string, { x: number; y: number }>
+  ) => {
+    try {
+      localStorage.setItem("nodePositions", JSON.stringify(positions));
+    } catch (error) {
+      console.error("Error saving positions to localStorage:", error);
+    }
+  };
+
+  // Función para cargar las posiciones desde localStorage
+  const loadPositionsFromLocalStorage = (): Record<
+    string,
+    { x: number; y: number }
+  > => {
+    try {
+      const savedPositions = localStorage.getItem("nodePositions");
+      return savedPositions ? JSON.parse(savedPositions) : {};
+    } catch (error) {
+      console.error("Error loading positions from localStorage:", error);
+      return {};
+    }
+  };
+
+  // Efecto para cargar posiciones guardadas al iniciar
+  useEffect(() => {
+    const savedPositions = loadPositionsFromLocalStorage();
+    positionsRef.current = savedPositions;
+  }, []);
 
   useEffect(() => {
     const nodes = [...graphData.nodes];
@@ -252,9 +299,16 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
     const width = containerRef.current?.clientWidth || 800;
     const height = containerRef.current?.clientHeight || 600;
 
+    // Cargar posiciones guardadas si existen
+    const savedPositions = loadPositionsFromLocalStorage();
+
+    // Fusionar las posiciones guardadas con las que teníamos en referencia
+    const mergedSavedPositions = { ...positionsRef.current, ...savedPositions };
+    positionsRef.current = mergedSavedPositions;
+
     // Solo calcular layout para nodos que no tienen posición guardada
     const nodosNuevos = nodesToRender.filter(
-      (node) => !positionsRef.current[node.elementId]
+      (node) => !mergedSavedPositions[node.elementId]
     );
 
     if (nodosNuevos.length > 0) {
@@ -263,16 +317,23 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
 
       // Combinar posiciones existentes con las nuevas
       setNodePositions((prev) => {
-        const combinedPositions = { ...prev, ...newPositionsForNewNodes };
+        const combinedPositions = {
+          ...mergedSavedPositions,
+          ...newPositionsForNewNodes,
+        };
         // Actualizar la referencia permanente
         positionsRef.current = combinedPositions;
         return combinedPositions;
       });
     } else if (Object.keys(nodePositions).length === 0) {
-      // Inicialización primera vez - solo si no hay posiciones todavía
-      const initialPositions = clusterLayout(nodesToRender, width, height);
-      setNodePositions(initialPositions);
-      positionsRef.current = initialPositions;
+      // Inicialización primera vez - usar posiciones guardadas o calcular nuevas
+      if (Object.keys(mergedSavedPositions).length > 0) {
+        setNodePositions(mergedSavedPositions);
+      } else {
+        const initialPositions = clusterLayout(nodesToRender, width, height);
+        setNodePositions(initialPositions);
+        positionsRef.current = initialPositions;
+      }
     }
   }, [nodesToRender]);
 
@@ -639,6 +700,8 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
         };
         // Actualizar también la referencia permanente
         positionsRef.current = updated;
+        // Guardar posiciones en localStorage
+        savePositionsToLocalStorage(updated);
         return updated;
       });
       setDragStart({ x: e.clientX, y: e.clientY });
@@ -694,6 +757,14 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
   const handleReset = () => {
     setZoom(1);
     setOffset({ x: 0, y: 0 });
+
+    // También limpiar las posiciones guardadas si se quiere un reset completo
+    // Opcional: descomentar estas líneas si quieres que el reset borre todo
+    // localStorage.removeItem('nodePositions');
+    // localStorage.removeItem('viewOffset');
+    // localStorage.removeItem('viewZoom');
+    // positionsRef.current = {};
+    // setNodePositions({});
   };
 
   useEffect(() => {
@@ -781,22 +852,24 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
       const offsetY = 50 + Math.random() * 30;
 
       if (nodePositions[copiedNode.elementId]) {
-        setNodePositions((prev) => ({
-          ...prev,
-          [newNodeId]: {
-            x: nodePositions[copiedNode.elementId].x + offsetX,
-            y: nodePositions[copiedNode.elementId].y + offsetY,
-          },
-        }));
-
-        // Actualizar también la referencia permanente
-        positionsRef.current = {
+        const newPositions = {
           ...positionsRef.current,
           [newNodeId]: {
             x: nodePositions[copiedNode.elementId].x + offsetX,
             y: nodePositions[copiedNode.elementId].y + offsetY,
           },
         };
+
+        setNodePositions((prev) => ({
+          ...prev,
+          ...newPositions,
+        }));
+
+        // Actualizar también la referencia permanente
+        positionsRef.current = newPositions;
+
+        // Guardar en localStorage
+        savePositionsToLocalStorage(newPositions);
       }
 
       // Crear las mismas relaciones para el nuevo nodo
@@ -852,6 +925,16 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedNodeId, copiedNode]);
+
+  // Efecto para guardar offset y zoom cuando cambian
+  useEffect(() => {
+    try {
+      localStorage.setItem("viewOffset", JSON.stringify(offset));
+      localStorage.setItem("viewZoom", zoom.toString());
+    } catch (error) {
+      console.error("Error saving view state to localStorage:", error);
+    }
+  }, [offset, zoom]);
 
   return (
     <div ref={containerRef} className="w-full h-full relative">
