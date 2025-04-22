@@ -92,7 +92,7 @@ def run_frontend():
     )
 
 # -------------------- Endpoints REST --------------------
-USE_LOCAL = os.getenv("USE_LOCAL", "false") #Lo utilizamos paraaa saber si usar el crawler o no, donde true es usar local y false es usar el crawler
+USE_LOCAL = False #Lo utilizamos paraaa saber si usar el crawler o no, donde true es usar local y false es usar el crawler
 METADATA_PATH = os.getenv("METADATA_PATH", "metadata.json") # Ruta al archivo de metadatos
 LOCAL_DIR = os.getenv("LOCAL_DIR", "images") # Ruta al directorio local donde se guardan las imágenes
 
@@ -123,6 +123,7 @@ def search_images():
                     break
 
     else:
+        print_colored(f"Buscando imágenes en Bing para la consulta: {query}", 32)
         temp_dir = tempfile.mkdtemp(prefix="img_search_")
         try:
             crawler = BingImageCrawler(storage={'root_dir': temp_dir})
