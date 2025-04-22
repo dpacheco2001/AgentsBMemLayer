@@ -16,6 +16,8 @@ import datetime
 import dotenv
 import os
 from openai import OpenAI
+import subprocess
+
 dotenv.load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
@@ -72,6 +74,17 @@ driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 app = Flask(__name__)
 CORS(app)
+
+def run_frontend():
+    print_colored("Iniciando el servidor de desarrollo de React...", 32)
+    cwd = os.path.join(os.path.dirname(__file__), "frontend")
+    print_colored(f"Directorio de trabajo: {cwd}", 34)
+
+    subprocess.Popen(
+        "npm run dev",
+        cwd=cwd,
+        shell=True
+    )
 
 # -------------------- Endpoints REST --------------------
 
@@ -395,6 +408,9 @@ def run_websocket_server():
 def main():
     global template_graph
     template_graph = compilegraph(checkpointer=in_memory_checkpointer, long_term_memory=long_term_in_memory)
+    
+    t_front = threading.Thread(target=run_frontend, daemon=True)
+    t_front.start()
     
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
