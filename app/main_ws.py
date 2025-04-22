@@ -92,29 +92,56 @@ def run_frontend():
     )
 
 # -------------------- Endpoints REST --------------------
+USE_LOCAL = os.getenv("USE_LOCAL", "false") #Lo utilizamos paraaa saber si usar el crawler o no, donde true es usar local y false es usar el crawler
+METADATA_PATH = os.getenv("METADATA_PATH", "metadata.json") # Ruta al archivo de metadatos
+LOCAL_DIR = os.getenv("LOCAL_DIR", "images") # Ruta al directorio local donde se guardan las imágenes
 
 @app.route('/api/images', methods=['GET'])
 def search_images():
-    query = request.args.get('query','').strip()
+    query = request.args.get('query','').strip().lower()
     if not query:
         return "Missing 'query'", 400
 
-    import tempfile, shutil, base64, os
-    temp_dir = tempfile.mkdtemp(prefix="img_")
-    try:
-        crawler = BingImageCrawler(storage={'root_dir': temp_dir})
-        crawler.crawl(keyword=query, max_num=2)
+    results = []
+    if USE_LOCAL:
+        try:
+            with open(METADATA_PATH, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+        except Exception as e:
+            return jsonify({"error": f"Failed to load metadata: {e}"}), 500
 
-        block = "```images_encontradas\n"
-        for fname in os.listdir(temp_dir)[:2]:
-            with open(os.path.join(temp_dir, fname),'rb') as f:
-                data = base64.b64encode(f.read()).decode()
-            block += f"nombre:{fname}\n"
-            block += f"data:{data}\n\n"
-        block += "```"
-        return block, 200, {'Content-Type':'text/plain'}
-    finally:
-        shutil.rmtree(temp_dir, ignore_errors=True)
+        for entry in metadata:
+            name = entry.get("name","").lower()
+            desc = entry.get("description","").lower()
+            if query in name or query in desc:
+                file_path = os.path.join(LOCAL_DIR, entry.get("file",""))
+                if os.path.isfile(file_path):
+                    with open(file_path, "rb") as imgf:
+                        b64 = base64.b64encode(imgf.read()).decode()
+                    results.append({"name": entry["name"], "data": b64})
+                if len(results) >= 2:
+                    break
+
+    else:
+        temp_dir = tempfile.mkdtemp(prefix="img_search_")
+        try:
+            crawler = BingImageCrawler(storage={'root_dir': temp_dir})
+            crawler.crawl(keyword=query, max_num=2)
+            for fname in os.listdir(temp_dir)[:2]:
+                path = os.path.join(temp_dir, fname)
+                with open(path,"rb") as imgf:
+                    b64 = base64.b64encode(imgf.read()).decode()
+                results.append({"name": fname, "data": b64})
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
+    block = "```images_encontradas\n"
+    for img in results:
+        block += f"nombre:{img['name']}\n"
+        block += f"data:{img['data']}\n\n"
+    block += "```"
+
+    return block, 200, {"Content-Type":"text/plain"}
 
 @app.route('/api/graph-data', methods=['GET'])
 def get_graph_data():
