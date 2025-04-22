@@ -12,118 +12,91 @@ from . import tools
 from . import prompts
 from langchain_core.messages import SystemMessage, HumanMessage,ToolMessage
 from langgraph.prebuilt import ToolNode
+from langgraph.types import Command
+import re
+import json
 
+#---------------Utils
 def print_colored(text, color_code):
     print(f"\033[{color_code}m{text}\033[0m")
+def unwrap_memory_query(texto):
+    pattern = r"(?:```|´´´)\s*(Episodica|Semantica)\s*(.*?)\s*(?:```|´´´)"
+    match = re.search(pattern, texto, re.DOTALL | re.IGNORECASE)
+    
+    if match:
+        tipo = match.group(1).strip().lower()
+        contenido = match.group(2).strip()
+        modo = "episodic" if tipo == "episodica" else "semantic"
+        return modo, contenido
+    
+    return None, None
 
-#Basic Agent: 
-#In init we have the state, the configuration, and the store that represents the long-term memory of our Agent.
-#We gonna prepare a model with example tools for this template.
-tool_s = [tools.execute_query,tools.execute_tool]
-model_with_tools = Models.get_model("gpt-4o").bind_tools(tool_s)
-
-#---Tool Nodes: Prebuilt
-def handle_tool_error(state: OverallState) -> dict:
-    """
-    Maneja errores de herramientas en el flujo de trabajo del grafo.
-
-    :param state: El state debe contener por lo menos:
-                  - "messages": Una lista de mensajes, donde el último mensaje será la respuesta de la toolcall, el cual será
-                  el error.
-    :return: En vez de parar la ejecución,  empaquetamos este error en un ToolMessage para mandarselo al agente.
-    """
-    tool_calls = state["messages"][-1].tool_calls
-    return {
-        "messages": [
-            ToolMessage(
-                content=f"Error: please fix your mistakes.",
-                tool_call_id=tc["id"],
-            )
-            for tc in tool_calls
-        ]
-    }
+def vector_search_nodes(type:str,query_text:str,k:int,driver,client):
+    if type == "episodic":
+        indexName = "episodic_index"
+    elif type == "semantic":
+        indexName = "semantic_index"
 
 
-def create_tool_node_with_fallback(tools: list) -> dict:
-    """
-    Crea un nodo con una lista de herramientas y agrega fallbacks
-    para manejar errores en caso de fallos durante la ejecución.
-    :param tools: Una lista de herramientas (tools) que se asignarán al nodo.
-    :return: Un nodo de herramientas capaz de iterar entre fallbacks para corregirlos
-    """
-    return ToolNode(tools).with_fallbacks(
-        [RunnableLambda(handle_tool_error)], exception_key="error"
+    openai_response = client.embeddings.create(
+        input=query_text,
+        model="text-embedding-3-small"
     )
-
-
-
-async def entry_node_memory(state: OverallState, config: RunnableConfig) -> dict:
-    entry_query = """
-    MATCH (n)
-    WHERE n:CasoEstudio OR n:AsistenteVirtual OR n:Ensayo 
-    RETURN n
+    queryVector = openai_response.data[0].embedding
+    query = f"""
+    CALL db.index.vector.queryNodes('{indexName}', {k}, {json.dumps(queryVector)})
+    YIELD node, score
+    RETURN node, score
     """
-    results =  tools.execute_query_entry(entry_query,config=config)
-    conversation_summary = []
-    messages= state["messages"]
-    for msg in messages:
-        if msg.type == "human":
-            conversation_summary.append(f"User: {msg.content}")
-        elif msg.type == "ai":
-            if hasattr(msg, "tool_calls") and msg.tool_calls and (not msg.content or msg.content.strip() == ""):
-                tool_names = [tc.get("name", "unknown_tool") for tc in msg.tool_calls if "name" in tc]
-                conversation_summary.append(f"ToolCall: {', '.join(tool_names)}")
-            else:
-                conversation_summary.append(f"Assistant: {msg.content}")
-        elif msg.type == "tool":
-            tool_name = getattr(msg, "name", "unknown_tool")
-            conversation_summary.append(f"Tool Message ({tool_name}): {msg.content}")
-        else:
-            conversation_summary.append(f"{msg.type.capitalize()}: {msg.content}")
+    try:
+        with driver.session() as session:
+            result = session.run(query)
+            records = [record.data() for record in result]
+            resultados= []
+            for record in records:
+                node = record["node"]
+                node_copy = dict(node)
+                if "embedding" in node_copy:
+                    del node_copy["embedding"]
+        
+                resultados.append(node_copy)
+        return {"results": resultados}
+    except Exception as e:
+        return {"error": f"Error executing vector search: {str(e)}"}
 
-    conversation_summary = "\n".join(conversation_summary)
+PRINCIPAL_MODEL_NAME="gemini-2.0-flash"
+print_colored(f"Using model: {PRINCIPAL_MODEL_NAME}", 32)
+model_with_tools= Models.get_model(PRINCIPAL_MODEL_NAME)
 
-    print_colored(f"---------------CONVERSATION SUMMARY------", 32)
-    print_colored(conversation_summary, 32)
-    print_colored(f"---------------CONVERSATION SUMMARY------", 32)
-    
-    memory_summary = "Nueva interacción, elige que nodo te sirve para responder el input y si ves algo que te ayude a responder ve excarvando memorias a partir de las relaciones.Puedes elegir tambien seguir excarvando un nodo que ya habias visto en tus memorias anteriores según el historial de chat\n"
-    for record in results:
-        node = record["n"]  
-        memory_summary += f"Nodo Principal->Propiedades: {node}\n"
-    
-    sys_prompt= prompts.EXAMPLE_SYS_PROMPT
-    response=model_with_tools.invoke([SystemMessage(content=sys_prompt),HumanMessage(content=conversation_summary),HumanMessage(content=str(memory_summary))])
-
-    
-    return {"messages": response}
 
 async def dig_into_memories(state: OverallState)-> dict:
     conversation_summary = []
     messages= state["messages"]
-    for msg in messages:
+    sys_prompt= prompts.MAIN_AGENT_SYS_PROMPT
+    #Aca falta el resumen de la conversación,si es que hay más de 4 mensajes.
+    for msg in messages[-4:]:
         if msg.type == "human":
-            conversation_summary.append(f"User: {msg.content}")
+            conversation_summary.append(f"Input: {msg.content}")
         elif msg.type == "ai":
-            if hasattr(msg, "tool_calls") and msg.tool_calls and (not msg.content or msg.content.strip() == ""):
-                tool_names = [tc.get("name", "unknown_tool") for tc in msg.tool_calls if "name" in tc]
-                conversation_summary.append(f"ToolCall: {', '.join(tool_names)}")
-            else:
-                conversation_summary.append(f"Assistant: {msg.content}")
-        elif msg.type == "tool":
-            tool_name = getattr(msg, "name", "unknown_tool")
-            conversation_summary.append(f"Tool Message ({tool_name}): {msg.content}")
-        else:
-            conversation_summary.append(f"{msg.type.capitalize()}: {msg.content}")
-
+            conversation_summary.append(f"Assistant: {msg.content}")
+                
+    
     conversation_summary = "\n".join(conversation_summary)
-
     print_colored(f"---------------CONVERSATION SUMMARY------", 32)
     print_colored(conversation_summary, 32)
     print_colored(f"---------------CONVERSATION SUMMARY------", 32)
-    tool_response= state["messages"][-1].content
-    sys_prompt= prompts.EXAMPLE_SYS_PROMPT
-    response= model_with_tools.invoke([SystemMessage(content=sys_prompt),HumanMessage(content=str(conversation_summary))])
+    informacion_trabajo= state["informacion_trabajo"]
+    #Construyendo el input:
+    #1. Quien es robert
+    #2. Historial de la conversación
+    #3. Informacion de trabajo
+
+    input_prompt=f"""
+        >Quien eres? Eres robert, un asistente que ayudará al estudiante a resolver sus dudas.Estan en el laboratorio de materiales de la PUCP.
+        >Historial de la conversación: {conversation_summary}
+        >Informacion de trabajo: {informacion_trabajo}
+    """
+    response= model_with_tools.invoke([SystemMessage(content=sys_prompt),HumanMessage(content=str(input_prompt))])
     return {"messages": response}
 
 
@@ -131,7 +104,30 @@ def dig_into_memories_tool_condition(state: OverallState) -> Literal["tools2", "
 
     messages = state["messages"]
     ai_message = messages[-1]
-
-    if hasattr(ai_message, "tool_calls") and len(ai_message.tool_calls) > 0:
-        return "tools2"
-    return "__end__"
+    configurable = config["configurable"]
+    driver = configurable["driver"]
+    client = configurable["client"]
+    print_colored(f"Analizing next node...", 32)
+    memory_type,query = unwrap_memory_query(ai_message.content)
+    if memory_type and query:
+        print_colored(f"Found memory query:",32)
+        print_colored(f"Memory type: {memory_type}", 32)
+        print_colored(f"Query: {query}", 32)
+        #Performar la búsqueda vectorial
+        k = 5
+        results = vector_search_nodes(memory_type,query,k,driver,client)
+        if results:
+            print_colored(f"Results: {results}", 32)
+            return{
+                "n_node": "dig_into_memories",
+                "informacion_trabajo": f"Información que pediste: \n{results}"
+            }
+        
+    return {
+        "n_node": "__end__"
+    }
+    
+def dig_into_memories_tool_condition(state: OverallState):
+    next_node = state["n_node"]
+    print_colored(f"Next node: {next_node}", 32)
+    return next_node

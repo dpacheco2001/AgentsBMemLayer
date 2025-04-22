@@ -119,17 +119,14 @@
   }
 
   .chat-input-container {
-    @apply relative mt-2 rounded-xl overflow-hidden border-2 border-brain-vivid;
+    @apply relative mt-2 rounded-xl overflow-hidden border border-brain-secondary;
     background: linear-gradient(180deg, rgba(45, 55, 72, 0.8) 0%, rgba(26, 31, 44, 0.8) 100%);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   
   .chat-input {
     @apply w-full bg-transparent border-none py-3 px-4 focus:outline-none placeholder:text-gray-500;
-    color: #ffffff; 
-  }
-  .chat-input:focus-within {
-    @apply ring-2 ring-brain-vivid ring-opacity-50;
+    color: #ffffff; /* Cambiando el color del texto a blanco */
   }
   
   .send-button {
@@ -153,5 +150,13 @@
   
   .font-neural {
     font-family: 'Neural', 'Space Grotesk', sans-serif;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

@@ -1,9 +1,10 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 
 // Función para dibujar un nodo (neurona)
 const drawNode = (ctx, x, y, z, isActive, highlightColor, isHovered) => {
   const depth = Math.max(0.5, (z + 200) / 400); // Normalizar profundidad para escala
-  const radius = 10 * depth;
+  const radius = 5 * depth;
   const baseColor = '#8B5CF6';
   const scale = isActive ? 1.5 : (isHovered ? 1.2 : 1);
   const actualColor = isActive ? highlightColor : (isHovered ? '#a78bfa' : baseColor);
@@ -77,7 +78,6 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [previousMousePos, setPreviousMousePos] = useState({ x: 0, y: 0 });
   const projectedNodesRef = useRef([]);
-  const [zoomLevel, setZoomLevel] = useState(1); // Nuevo estado para el nivel de zoom
   
   // Array de colores de resaltado
   const highlightColors = ["#FFC107", "#4CAF50", "#2196F3", "#F44336", "#9C27B0"];
@@ -90,7 +90,7 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
     const rotatedZ = x * Math.sin(angle) + z * Math.cos(angle);
     
     // Proyección simple
-    const scaleFactor = 1.2 * zoomLevel; // Aplicar el nivel de zoom
+    const scaleFactor = 1.2;
     const projectedX = (rotatedX * scaleFactor) + canvasWidth / 2;
     const projectedY = (y * scaleFactor) + canvasHeight / 2;
     const depth = rotatedZ;
@@ -113,7 +113,7 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
       const dy = node.y - mouseY;
       // Distancia al cuadrado (evita calcular raíz cuadrada)
       const distSquared = dx * dx + dy * dy;
-      const radius = 10 * Math.max(0.5, (node.z + 200) / 400);
+      const radius = 5 * Math.max(0.5, (node.z + 200) / 400);
       // Comparar con el radio al cuadrado
       return distSquared <= radius * radius * 4; // Un poco más grande para facilitar la selección
     });
@@ -187,14 +187,6 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
     setDraggedNodeId(null);
     setHoveredNodeId(null);
   };
-
-  // Función para manejar el evento de rueda del mouse (zoom)
-  const handleWheel = (e) => {
-    e.preventDefault();
-    const delta = e.deltaY * -0.001; // Determinar dirección y cantidad de zoom
-    const newZoom = Math.min(Math.max(zoomLevel + delta, 0.5), 5); // Limitar entre 0.5 y 5
-    setZoomLevel(newZoom);
-  };
   
   // Efecto para inicializar posiciones aleatorias si no existen
   useEffect(() => {
@@ -216,7 +208,6 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
     canvas.addEventListener('mousemove', handleCanvasMouseMove);
     window.addEventListener('mouseup', handleCanvasMouseUp);
     canvas.addEventListener('mouseleave', handleCanvasMouseLeave);
-    canvas.addEventListener('wheel', handleWheel, { passive: false }); // Añadir manejador de zoom
     
     const ctx = canvas.getContext('2d');
     const resizeCanvas = () => {
@@ -319,13 +310,12 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
       canvas.removeEventListener('mousemove', handleCanvasMouseMove);
       window.removeEventListener('mouseup', handleCanvasMouseUp);
       canvas.removeEventListener('mouseleave', handleCanvasMouseLeave);
-      canvas.removeEventListener('wheel', handleWheel); // Remover manejador de zoom
       
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [graphData, highlightedNodes, highlightRound, currentHighlightColor, draggedNodeId, hoveredNodeId, isDragging, onNodeSelect, zoomLevel]);
+  }, [graphData, highlightedNodes, highlightRound, currentHighlightColor, draggedNodeId, hoveredNodeId, isDragging, onNodeSelect]);
   
   // Estilo para el contenedor del canvas
   const canvasStyle = {
@@ -335,8 +325,7 @@ const BrainVisualizer = ({ graphData, highlightedNodes, highlightRound, onNodeSe
     position: 'absolute',
     top: 0,
     left: 0,
-    cursor: hoveredNodeId ? 'pointer' : (isDragging ? 'grabbing' : 'grab'),
-    touchAction: 'none' // Evitar problemas en dispositivos táctiles
+    cursor: hoveredNodeId ? 'pointer' : (isDragging ? 'grabbing' : 'grab')
   };
   
   return (
