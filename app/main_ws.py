@@ -17,6 +17,11 @@ import dotenv
 import os
 from openai import OpenAI
 import subprocess
+from icrawler.builtin import GoogleImageCrawler
+import base64
+import tempfile
+import shutil
+from icrawler.builtin import BingImageCrawler
 
 dotenv.load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -87,6 +92,29 @@ def run_frontend():
     )
 
 # -------------------- Endpoints REST --------------------
+
+@app.route('/api/images', methods=['GET'])
+def search_images():
+    query = request.args.get('query','').strip()
+    if not query:
+        return "Missing 'query'", 400
+
+    import tempfile, shutil, base64, os
+    temp_dir = tempfile.mkdtemp(prefix="img_")
+    try:
+        crawler = BingImageCrawler(storage={'root_dir': temp_dir})
+        crawler.crawl(keyword=query, max_num=2)
+
+        block = "```images_encontradas\n"
+        for fname in os.listdir(temp_dir)[:2]:
+            with open(os.path.join(temp_dir, fname),'rb') as f:
+                data = base64.b64encode(f.read()).decode()
+            block += f"nombre:{fname}\n"
+            block += f"data:{data}\n\n"
+        block += "```"
+        return block, 200, {'Content-Type':'text/plain'}
+    finally:
+        shutil.rmtree(temp_dir, ignore_errors=True)
 
 @app.route('/api/graph-data', methods=['GET'])
 def get_graph_data():
