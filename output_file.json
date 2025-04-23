@@ -1,601 +1,415 @@
 {
   "relaciones": [
     {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152948992397541383",
-      "tipo": "ENSAYO_ACTUAL_0_3",
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152935798258008066",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_7",
       "properties": {},
-      "origen": "4:bd_id:7"
+      "origen": "4:bd_id:2"
     },
     {
-      "destino": "4:bd_id:13",
-      "id": "5:bd_id:1152954489955680263",
-      "tipo": "ENSAYO_ACTUAL_0_2",
+      "destino": "4:bd_id:7",
+      "id": "5:bd_id:1152936897769635842",
+      "tipo": "ENSAYO_ACTUAL_0_8",
       "properties": {},
-      "origen": "4:bd_id:7"
+      "origen": "4:bd_id:2"
     },
     {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152948992397541384",
-      "tipo": "ENSAYO_ACTUAL_0_3",
+      "destino": "4:bd_id:7",
+      "id": "5:bd_id:1152934698746380292",
+      "tipo": "ENSAYO_ACTUAL_0_7",
       "properties": {},
-      "origen": "4:bd_id:8"
+      "origen": "4:bd_id:4"
     },
     {
-      "destino": "4:bd_id:13",
-      "id": "5:bd_id:1152954489955680264",
-      "tipo": "ENSAYO_ACTUAL_0_2",
+      "destino": "4:bd_id:5",
+      "id": "5:bd_id:1152937997281263620",
+      "tipo": "DESCRIPCION_PIEZA_0_9",
       "properties": {},
-      "origen": "4:bd_id:8"
+      "origen": "4:bd_id:4"
     },
     {
-      "destino": "4:bd_id:13",
-      "id": "5:bd_id:1152954489955680266",
-      "tipo": "ENSAYO_ACTUAL_0_2",
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152939096792891396",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
       "properties": {},
-      "origen": "4:bd_id:10"
+      "origen": "4:bd_id:4"
+    },
+    {
+      "destino": "4:bd_id:1",
+      "id": "5:bd_id:1152931400211496966",
+      "tipo": "CASO_DE_ESTUDIO_1",
+      "properties": {},
+      "origen": "4:bd_id:6"
+    },
+    {
+      "destino": "4:bd_id:3",
+      "id": "5:bd_id:1155184299536809990",
+      "tipo": "ENSAYO_DISPONIBLE_1",
+      "properties": {},
+      "origen": "4:bd_id:6"
+    },
+    {
+      "destino": "4:bd_id:7",
+      "id": "5:bd_id:1152932499723124742",
+      "tipo": "ENSAYO_DISPONIBLE_1",
+      "properties": {},
+      "origen": "4:bd_id:6"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152933599234752518",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_1",
+      "properties": {},
+      "origen": "4:bd_id:6"
     },
     {
       "destino": "4:bd_id:9",
-      "id": "5:bd_id:1152956688978935818",
-      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "id": "5:bd_id:1152940196304519176",
+      "tipo": "ZONA_RELEVANTE_DESEADA_1",
       "properties": {},
-      "origen": "4:bd_id:10"
+      "origen": "4:bd_id:8"
     },
     {
-      "destino": "4:bd_id:11",
-      "id": "5:bd_id:1155208488792621066",
-      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "destino": "4:bd_id:10",
+      "id": "5:bd_id:1155191996118204424",
+      "tipo": "ZONA_RELEVANTE_DESEADA_1",
       "properties": {},
-      "origen": "4:bd_id:10"
+      "origen": "4:bd_id:8"
     },
     {
-      "destino": "4:bd_id:12",
-      "id": "5:bd_id:1157460288606306314",
-      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "destino": "4:bd_id:7",
+      "id": "5:bd_id:1152941295816146952",
+      "tipo": "ENSAYO_ACTUAL_0_6",
       "properties": {},
-      "origen": "4:bd_id:10"
+      "origen": "4:bd_id:8"
     },
     {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152957788490563594",
-      "tipo": "ENSAYO_ACTUAL_0_9",
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152942395327774728",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
       "properties": {},
-      "origen": "4:bd_id:10"
+      "origen": "4:bd_id:8"
     },
     {
-      "destino": "4:bd_id:47",
-      "id": "5:bd_id:1152948992397541389",
-      "tipo": "ENSAYO_ACTUAL_0_3",
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152942395327774731",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
+      "properties": {},
+      "origen": "4:bd_id:11"
+    },
+    {
+      "destino": "4:bd_id:3",
+      "id": "5:bd_id:1152934698746380300",
+      "tipo": "ENSAYO_ACTUAL_0_7",
+      "properties": {},
+      "origen": "4:bd_id:12"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152939096792891404",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
+      "properties": {},
+      "origen": "4:bd_id:12"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152942395327774733",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
       "properties": {},
       "origen": "4:bd_id:13"
     },
     {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152935798258008080",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_7",
-      "properties": {},
-      "origen": "4:bd_id:16"
-    },
-    {
-      "destino": "4:bd_id:48",
-      "id": "5:bd_id:1152936897769635856",
-      "tipo": "ENSAYO_ACTUAL_0_8",
-      "properties": {},
-      "origen": "4:bd_id:16"
-    },
-    {
-      "destino": "4:bd_id:48",
-      "id": "5:bd_id:1152934698746380330",
-      "tipo": "ENSAYO_ACTUAL_0_7",
-      "properties": {},
-      "origen": "4:bd_id:42"
-    },
-    {
-      "destino": "4:bd_id:43",
-      "id": "5:bd_id:1152937997281263658",
-      "tipo": "DESCRIPCION_PIEZA_0_9",
-      "properties": {},
-      "origen": "4:bd_id:42"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152939096792891434",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
-      "properties": {},
-      "origen": "4:bd_id:42"
-    },
-    {
-      "destino": "4:bd_id:15",
-      "id": "5:bd_id:1152931400211497007",
-      "tipo": "CASO_DE_ESTUDIO_1",
-      "properties": {},
-      "origen": "4:bd_id:47"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152932499723124783",
-      "tipo": "ENSAYO_DISPONIBLE_1",
-      "properties": {},
-      "origen": "4:bd_id:47"
-    },
-    {
-      "destino": "4:bd_id:48",
-      "id": "5:bd_id:1155184299536810031",
-      "tipo": "ENSAYO_DISPONIBLE_1",
-      "properties": {},
-      "origen": "4:bd_id:47"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152933599234752559",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_1",
-      "properties": {},
-      "origen": "4:bd_id:47"
-    },
-    {
-      "destino": "4:bd_id:50",
-      "id": "5:bd_id:1152940196304519217",
-      "tipo": "ZONA_RELEVANTE_DESEADA_1",
-      "properties": {},
-      "origen": "4:bd_id:49"
-    },
-    {
-      "destino": "4:bd_id:51",
-      "id": "5:bd_id:1155191996118204465",
-      "tipo": "ZONA_RELEVANTE_DESEADA_1",
-      "properties": {},
-      "origen": "4:bd_id:49"
-    },
-    {
-      "destino": "4:bd_id:48",
-      "id": "5:bd_id:1152941295816146993",
-      "tipo": "ENSAYO_ACTUAL_0_6",
-      "properties": {},
-      "origen": "4:bd_id:49"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152942395327774769",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
-      "properties": {},
-      "origen": "4:bd_id:49"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152942395327774772",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
-      "properties": {},
-      "origen": "4:bd_id:52"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152934698746380341",
-      "tipo": "ENSAYO_ACTUAL_0_7",
-      "properties": {},
-      "origen": "4:bd_id:53"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152939096792891445",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
-      "properties": {},
-      "origen": "4:bd_id:53"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152942395327774774",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
-      "properties": {},
-      "origen": "4:bd_id:54"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152945693862658102",
+      "destino": "4:bd_id:3",
+      "id": "5:bd_id:1152945693862658061",
       "tipo": "ENSAYO_DISPONIBLE_0_8",
       "properties": {},
-      "origen": "4:bd_id:54"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152941295816146999",
-      "tipo": "ENSAYO_ACTUAL_0_6",
-      "properties": {},
-      "origen": "4:bd_id:55"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152942395327774775",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
-      "properties": {},
-      "origen": "4:bd_id:55"
-    },
-    {
-      "destino": "4:bd_id:57",
-      "id": "5:bd_id:1152946793374285880",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:58",
-      "id": "5:bd_id:1155198593187971128",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:59",
-      "id": "5:bd_id:1157450393001656376",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:60",
-      "id": "5:bd_id:1152947892885913656",
-      "tipo": "DONDE_SE_PONE_LA_MUESTRA_1",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152948992397541432",
-      "tipo": "ENSAYO_ACTUAL_0_3",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152950091909169208",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_1",
-      "properties": {},
-      "origen": "4:bd_id:56"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152951191420796989",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_2",
-      "properties": {},
-      "origen": "4:bd_id:61"
-    },
-    {
-      "destino": "4:bd_id:41",
-      "id": "5:bd_id:1152952290932424765",
-      "tipo": "ENSAYO_ACTUAL_0_4",
-      "properties": {},
-      "origen": "4:bd_id:61"
-    },
-    {
-      "destino": "4:bd_id:63",
-      "id": "5:bd_id:1152934698746380350",
-      "tipo": "ENSAYO_ACTUAL_0_7",
-      "properties": {},
-      "origen": "4:bd_id:62"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152939096792891454",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
-      "properties": {},
-      "origen": "4:bd_id:62"
-    },
-    {
-      "destino": "4:bd_id:47",
-      "id": "5:bd_id:1152932499723124799",
-      "tipo": "ENSAYO_DISPONIBLE_1",
-      "properties": {},
-      "origen": "4:bd_id:63"
-    },
-    {
-      "destino": "4:bd_id:63",
-      "id": "5:bd_id:1152941295816147008",
-      "tipo": "ENSAYO_ACTUAL_0_6",
-      "properties": {},
-      "origen": "4:bd_id:64"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152942395327774784",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
-      "properties": {},
-      "origen": "4:bd_id:64"
-    },
-    {
-      "destino": "4:bd_id:1",
-      "id": "5:bd_id:1161953992629026881",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:2",
-      "id": "5:bd_id:1164205792442712129",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:66",
-      "id": "5:bd_id:1152946793374285889",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:68",
-      "id": "5:bd_id:1155198593187971137",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:69",
-      "id": "5:bd_id:1157450393001656385",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:70",
-      "id": "5:bd_id:1159702192815341633",
-      "tipo": "COMPONENTE_INTERACTUABLE_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:63",
-      "id": "5:bd_id:1152948992397541441",
-      "tipo": "ENSAYO_ACTUAL_0_3",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152950091909169217",
-      "tipo": "QUIEN_ES_EL_ASISTENTE_0_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:0",
-      "id": "5:bd_id:1152953390444052545",
-      "tipo": "DONDE_SE_MUESTRA_LOS_RESULTADOS_1",
-      "properties": {},
-      "origen": "4:bd_id:65"
-    },
-    {
-      "destino": "4:bd_id:14",
-      "id": "5:bd_id:1152948992397541443",
-      "tipo": "ENSAYO_ACTUAL_0_3",
-      "properties": {},
-      "origen": "4:bd_id:67"
-    },
-    {
-      "destino": "4:bd_id:63",
-      "id": "5:bd_id:1152954489955680323",
-      "tipo": "ENSAYO_ACTUAL_0_2",
-      "properties": {},
-      "origen": "4:bd_id:67"
+      "origen": "4:bd_id:13"
     },
     {
       "destino": "4:bd_id:3",
-      "id": "5:bd_id:1152955589467308099",
-      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "id": "5:bd_id:1152941295816146958",
+      "tipo": "ENSAYO_ACTUAL_0_6",
       "properties": {},
-      "origen": "4:bd_id:67"
+      "origen": "4:bd_id:14"
     },
     {
-      "destino": "4:bd_id:4",
-      "id": "5:bd_id:1155207389280993347",
-      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152942395327774734",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
       "properties": {},
-      "origen": "4:bd_id:67"
+      "origen": "4:bd_id:14"
     },
     {
-      "destino": "4:bd_id:5",
-      "id": "5:bd_id:1157459189094678595",
-      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "destino": "4:bd_id:16",
+      "id": "5:bd_id:1152946793374285839",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
       "properties": {},
-      "origen": "4:bd_id:67"
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:17",
+      "id": "5:bd_id:1155198593187971087",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:18",
+      "id": "5:bd_id:1157450393001656335",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:19",
+      "id": "5:bd_id:1152947892885913615",
+      "tipo": "DONDE_SE_PONE_LA_MUESTRA_1",
+      "properties": {},
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:3",
+      "id": "5:bd_id:1152948992397541391",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152950091909169167",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_1",
+      "properties": {},
+      "origen": "4:bd_id:15"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152951191420796948",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_2",
+      "properties": {},
+      "origen": "4:bd_id:20"
+    },
+    {
+      "destino": "4:bd_id:3",
+      "id": "5:bd_id:1152952290932424724",
+      "tipo": "ENSAYO_ACTUAL_0_4",
+      "properties": {},
+      "origen": "4:bd_id:20"
+    },
+    {
+      "destino": "4:bd_id:22",
+      "id": "5:bd_id:1152934698746380309",
+      "tipo": "ENSAYO_ACTUAL_0_7",
+      "properties": {},
+      "origen": "4:bd_id:21"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152939096792891413",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_4",
+      "properties": {},
+      "origen": "4:bd_id:21"
     },
     {
       "destino": "4:bd_id:6",
-      "id": "5:bd_id:1159710988908363843",
+      "id": "5:bd_id:1152932499723124758",
+      "tipo": "ENSAYO_DISPONIBLE_1",
+      "properties": {},
+      "origen": "4:bd_id:22"
+    },
+    {
+      "destino": "4:bd_id:22",
+      "id": "5:bd_id:1152941295816146967",
+      "tipo": "ENSAYO_ACTUAL_0_6",
+      "properties": {},
+      "origen": "4:bd_id:23"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152942395327774743",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_3",
+      "properties": {},
+      "origen": "4:bd_id:23"
+    },
+    {
+      "destino": "4:bd_id:25",
+      "id": "5:bd_id:1161953992629026840",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:27",
+      "id": "5:bd_id:1157450393001656344",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:28",
+      "id": "5:bd_id:1152946793374285848",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:29",
+      "id": "5:bd_id:1155198593187971096",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:31",
+      "id": "5:bd_id:6917554316408520735",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:32",
+      "id": "5:bd_id:6917554316408520736",
+      "tipo": "COMPONENTE_INTERACTUABLE_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:22",
+      "id": "5:bd_id:1152948992397541400",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1155201891722854424",
+      "tipo": "QUIEN_ES_EL_ASISTENTE_0_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:30",
+      "id": "5:bd_id:1152953390444052504",
+      "tipo": "DONDE_SE_MUESTRA_LOS_RESULTADOS_1",
+      "properties": {},
+      "origen": "4:bd_id:24"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152948992397541402",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:22",
+      "id": "5:bd_id:1152954489955680282",
+      "tipo": "ENSAYO_ACTUAL_0_2",
+      "properties": {},
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:33",
+      "id": "5:bd_id:1152955589467308058",
       "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
       "properties": {},
-      "origen": "4:bd_id:67"
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:34",
+      "id": "5:bd_id:1155207389280993306",
+      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:35",
+      "id": "5:bd_id:1157459189094678554",
+      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:36",
+      "id": "5:bd_id:1159710988908363802",
+      "tipo": "PREGUNTA_DUREZA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:26"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152948992397541413",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:37"
+    },
+    {
+      "destino": "4:bd_id:43",
+      "id": "5:bd_id:1152954489955680293",
+      "tipo": "ENSAYO_ACTUAL_0_2",
+      "properties": {},
+      "origen": "4:bd_id:37"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152948992397541414",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:38"
+    },
+    {
+      "destino": "4:bd_id:43",
+      "id": "5:bd_id:1152954489955680294",
+      "tipo": "ENSAYO_ACTUAL_0_2",
+      "properties": {},
+      "origen": "4:bd_id:38"
+    },
+    {
+      "destino": "4:bd_id:43",
+      "id": "5:bd_id:1152954489955680296",
+      "tipo": "ENSAYO_ACTUAL_0_2",
+      "properties": {},
+      "origen": "4:bd_id:40"
+    },
+    {
+      "destino": "4:bd_id:39",
+      "id": "5:bd_id:1155208488792621096",
+      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:40"
+    },
+    {
+      "destino": "4:bd_id:41",
+      "id": "5:bd_id:1157460288606306344",
+      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:40"
+    },
+    {
+      "destino": "4:bd_id:42",
+      "id": "5:bd_id:1152956688978935848",
+      "tipo": "PREGUNTA_QUIMICA_MATERIAL_BASE_1",
+      "properties": {},
+      "origen": "4:bd_id:40"
+    },
+    {
+      "destino": "4:bd_id:0",
+      "id": "5:bd_id:1152957788490563624",
+      "tipo": "ENSAYO_ACTUAL_0_9",
+      "properties": {},
+      "origen": "4:bd_id:40"
+    },
+    {
+      "destino": "4:bd_id:6",
+      "id": "5:bd_id:1155200792211226667",
+      "tipo": "ENSAYO_ACTUAL_0_3",
+      "properties": {},
+      "origen": "4:bd_id:43"
     }
   ],
   "nodos": [
     {
       "id": "4:bd_id:0",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "description": "Es la pantalla donde si visualiza los resultados que se encuentra en la pantalla de la maquina y se encuentra también un monitor con los resultados de los ensayos con métricas como promedios y valores mayores.",
-        "name": "pantalla de resultados",
-        "herramienta_individual": "Esta herramienta se debe invocar si el usuario no sabe dónde mirar para ver el resultado de la dureza y se tiene que activar de manera paralela cuando realiza la explicación: \"highlight_pantalla_resultados\"",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:1",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "description": "Es un botón con forma de peso, este se seleccionará para poder activar la selección de pesos, que va de 5kg en 5kg, además de eso es importante este paso después de aprender a usar las plataformas.",
-        "name": "botón de seleccionar peso",
-        "herramienta_individual": "esta herramienta se debe de invocar cuando el usuario haya terminado de aprender a usar los diales y requiera seleccionar los pesos para el ensayo: \"seleccionar_peso\"",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:2",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "description": "Es el control giratorio ubicado generalmente en el costado derecho del durómetro, conectado a la plataforma. Al girarlo, se desplaza la plataforma y la muestra hacia adelante (horario) y hacia atrás (antihorario) (movimiento en el eje Y). Sirve para el posicionamiento en profundidad preciso.",
-        "name": "Dial lateral",
-        "herramienta_individual": "Esta herramienta se debe invocar si el usuario no sabe cómo utilizar los diales, es decir como mover para adelante o para atras en el eje y, esto debe invocarse de manera paralela: \"animacion_diales_lateral\".",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:3",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería responder que la variación es pequeña o que los valores son consistentes, por ejemplo: 'No hay mucha diferencia''. Si el usuario dice 'no sé' o responde con algo como 'hay una diferencia grande', el tutor debe decir: Observa cuál es el valor más bajo y cuál es el más alto. ¿La diferencia te parece significativa como para pensar que hay un problema en el material?', Importante:  responderle de una forma amigable, además felicitar si responden bien",
-        "pregunta_guia": "¿Puedes observar si hay mucha variación entre los puntos de dureza medidos?",
-        "description": "El usuario debe observar la tabla de dureza y notar si hay mucha variación entre los valores medidos.",
-        "name": "pregunta variación dureza",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:4",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería decir algo como: 'El valor más bajo fue ... y el más alto ...'. Si responde 'no sé', el tutor puede decir: 'Vuelve a mirar la tabla con calma. Busca el número más pequeño y el más grande. ¿Los tienes ahora?' Si responde mal (por ejemplo, fuera del rango real), se debe decir: 'Revisa bien. Asegúrate de mirar todos los puntos antes de responder'.  responderle de una forma amigable, además felicitar si responden bien",
-        "pregunta_guia": "¿Cuál fue el valor más bajo y cuál el más alto en la tabla de dureza?",
-        "description": "Guiar al usuario a identificar con precisión los valores extremos medidos en el ensayo de dureza.",
-        "name": "pregunta min max dureza",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:5",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería responder que sí, por ejemplo: 'Sí, están dentro del rango normal', o 'Sí, coinciden con la hoja técnica'. Si dice 'no sé qué material es', el tutor debe decir: 'Puedes acercarte a la mesa del laboratorio. Ahí está la hoja técnica del material base'. Si dice que no son adecuados sin justificación, responder: '¿Estás comparando con alguna referencia? Asegúrate de usar los datos de la hoja del material para tomar tu decisión'. Importante, responderle de una forma amigable, además felicitar si responden bien",
-        "pregunta_guia": "¿Estos valores te parecen adecuados para el tipo de acero utilizado?",
-        "description": "El usuario debe comparar los valores medidos con los rangos aceptables para el tipo de acero usado.",
-        "name": "pregunta comparación material",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:6",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería responder que no, por ejemplo: 'No, si está en el rango no debería fallar', o 'No creo que esa dureza haya provocado la falla'. Si dice 'sí' o 'no estoy seguro', el tutor puede responder: 'Piensa: una dureza dentro del rango significa que el material cumple con las especificaciones. ¿Crees que eso sería suficiente para provocar una fractura por sí solo?', además decirle que felicitaciones por haber terminado la experiencia con el análisis del material base.",
-        "pregunta_guia": "¿Crees que una dureza dentro de ese rango podría causar una falla en el componente?",
-        "description": "El alumno debe analizar si tener valores de dureza dentro del rango puede haber causado la falla.",
-        "name": "pregunta dureza causa falla",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:7",
-      "labels": [
-        "episodic"
-      ],
-      "properties": {
-        "plan_de_accion_actual": "Voy a guiarle al lugar de ensayos, para ello voy a llamar a la herramienta: \"activar_camino_quimico\", esto me mostrará un camino donde el usuario tendrá que seguir para llegar a la maquina química.\nSi el usuario me habla sobre el ensayo y por mi inferencia puedo responderle entonces  lo hago, en caso no puedo responderle por mi inferencia al nodo *SEMANTICO* con la query: \"Ensayo químico\", este nos brindará más información sobre el ensayo a realizar, esperamos que le usuario nos confirme que llego al lugar.\n",
-        "description": "El usuario ha elegido el ensayo quimico",
-        "name": "El usuario ha elegido el ensayo químico",
-        "resultado": "MUY POSITIVO",
-        "plan_de_acción_futuro": "Si el usuario pide información de las tareas que se tienen en el ensayo de análisis químico, le diré que revisaremos cada una cuando llegue el momento. \nSi el usuario me pide información general acerca del análisis químico que puede ser respondida con mi inferencia, puedo responderle con mi conocimiento general, no es necesario que realice una búsqueda. Si me habla de otra cosa que no sea del ensayo químico, puedo usar mi inferencia general para entretener al usuario mientras llegamos al lugar del ensayo, pero siempre le tendré que decir que no se olvide que siga las flechas para empezar con el ensayo químico. \nCuando el usuario me dice que ya llego a la ubicación donde se realizará el ensayo de análisis químico, voy a hacer a buscar en mi memoria *EPISODICA* con el query: \"El usuario ya llego al lugar donde se realizará el ensayo químico\", para saber como proceder",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:8",
-      "labels": [
-        "episodic"
-      ],
-      "properties": {
-        "plan_de_accion_actual": "Voy a decirle al usuario que ya estamos en la maquina química. Le mencionaré que la muestra ya está preparada para este ensayo. Lo siguiente es que debe colocar la pieza en la plataforma de la máquina. Para ayudarlo, voy a resaltar la zona correcta en la plataforma Invoco herramienta: \"señalar_posicion_de_muestra_quimica\". Le pediré que agarre la pieza, la coloque ahí y me avise cuando termine. Después esperaré su siguiente input donde me confirme que ha colocado la pieza",
-        "description": "El usuario ya llego al lugar donde se realizará el ensayo quimico",
-        "name": "Llegó al lugar de análisis quimico",
-        "resultado": "muy bueno",
-        "plan_de_acción_futuro": "Si el usuario dice que no sabe como agarrar la pieza, lo ayudo mostrándole una animación que indica el botón del mando que se debe utilizar para agarrar Invoco herramienta: \"mostrar_mando_coger\".\nSi el usuario me pregunta sobre la preparación de la muestra para la máquina quimica, le confirmo que ya está lista y que nos podemos concentrar en usar la máquina.\nCuando el usuario me diga que ya colocó la pieza en la plataforma, haré una búsqueda en la memoria *EPISODICA* con el siguiente query: \"Listo para aprender a utilizar la maquina química\", para saber cómo proceder.",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:9",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería decir algo como: 'Sí, parecen normales' o 'Sí, no hay valores extraños', el objetivo es que los valores si coincidan o se parezcan a los valores por norma del material. Si dice 'no sé', el tutor puede responder algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar las respuestas, 1.4): 'Recuerda que un acero para bielas suele tener algo de carbono, cromo, manganeso… si ninguno está exageradamente alto, probablemente está bien', vuelve a repreguntar: ¿Te parece que los valores observados están dentro de los rangos normales? y por qué?",
-        "pregunta_guia": "¿Te parece que los valores observados están dentro de los rangos normales para un acero utilizado en componentes mecánicos?",
-        "description": "Llevar al usuario a pensar si los valores están dentro de un rango esperado para un acero de aplicación mecánica.",
-        "name": "preguntas comparar valores",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:10",
-      "labels": [
-        "episodic"
-      ],
-      "properties": {
-        "plan_de_accion_actual": "Después de colocar la pieza en la plataforma, debo de enseñar a activar la máquina química, mediante un botón. para poder enseñar necesito activar la herramienta \"animacion_boton_quimica\" para mostrarte exactamente cómo funciona. Ese será el único paso importante en el proceso.",
-        "description": "Empezar a aprender a utilizar la maquina química",
-        "name": "Listo para aprender a utilizar la maquina química",
-        "resultado": "MUY POSITIVO",
-        "plan_de_acción_futuro": "Una vez que el usuario haya colocado la pieza, lo guiaré paso a paso por el resto del flujo. Este incluirá:\n\n- Enseñarle cómo activar la maquina química es por eso que se debe de presionar el botón y activar la tool: animacion_boton_quimica\n- Indicar al usuario que debe hacer el ensayo por almenos 3 veces.\n- Preguntar al usuario: ¿Puedes mencionar al menos tres de los elementos que estén más involucrados con la dureza del material, y como les afecta?\n- Preguntar al usuario: ¿Te parece que los valores observados están dentro de los rangos normales para un acero utilizado en componentes mecánicos?\n- decir al usuario como pregunta final: Entonces dime… ¿crees que el problema está en la composición química del material base?\n\nRecuerda guiar al usuario hacia la respuesta, para que lo diga si en casos e equivoca, mas de 2 veces decirle la respuesta con una explicación. Si no llega a esta conclusión, debes orientarlo sin decirle la respuesta., recuerda seguir esta secuencia y felicitar y motivar si es que responde bien cada una de las preguntas. Importante si el usuario se equivoca, guiarle a la respuesta, no decirle la respuesta directamente.",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:11",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería mencionar elementos como el Carbono, Cromo, Molibdeno, Manganeso o Silicio, y relacionarlos con sus efectos en la dureza. Ejemplo de una buena respuesta: 'El carbono aumenta la dureza, el cromo mejora el desgaste y el molibdeno evita la fragilidad térmica'. Si el usuario responde 'no sé' o menciona elementos incorrectos el tutor debe decir algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar los elementos, 1.4): 'No te preocupes, puedes revisar la tabla del análisis químico que está sobre la mesa y menciones que elementos crees que están involucrados. y yo te ayudare uno por uno con definiciones, pero necesito que al menos me des una hipótesis del elemento.",
-        "pregunta_guia": "¿Puedes mencionar al menos tres de los elementos que estén más involucrados con la dureza del material, y cómo les afecta?",
-        "description": "Guiar al usuario a identificar y relacionar al menos tres elementos químicos presentes en la composición del acero que influyen directamente en su dureza.",
-        "name": "preguntas elementos dureza",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:12",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "respuesta_esperada": "El usuario debería decir: 'No, la composición parece adecuada' Si dice que sí o duda, el tutor debe responder algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar las respuestas, 1.4):: 'Recuerda que no encontramos anomalías en la composición. ¿Cual elemento crees que causa conflicto en la composición del material base?'además decirle que felicitaciones por haber terminado la experiencia con el análisis del material base.",
-        "pregunta_guia": "Entonces dime… ¿crees que el problema está en la composición química del material base?",
-        "description": "El usuario debe concluir que el material base no tiene problemas de composición, y que la falla viene de otro factor.",
-        "name": "conclusión material base composición",
-        "embedding": null
-      }
-    },
-    {
-      "id": "4:bd_id:13",
-      "labels": [
-        "semantic"
-      ],
-      "properties": {
-        "objetivo_general": "El objetivo principal es determinar la composición química del material de la biela. Esto incluye verificar si los porcentajes de elementos como carbono, manganeso, cromo, silicio, molibdeno., se encuentran dentro de los rangos establecidos para el tipo de acero especificado. También ayuda a descartar si la falla fue provocada por el uso de un material inadecuado o por una aleación mal controlada.",
-        "tiempo_ejecucion": "15  a 20 minutos",
-        "tipo_ensayo": "Destructivo (por ataque químico)",
-        "description": "Contiene toda la información relacionada al análisis químico del material. Este ensayo, generalmente destructivo, permite identificar la composición elemental del componente metálico (como %C, %Mn, %Cr, Mo, Si.). Es esencial para validar si el material utilizado corresponde al especificado por el fabricante y cumple con los estándares técnicos para su función estructural.",
-        "name": "Ensayo quimico",
-        "limitaciones": "Requiere extracción de una muestra del componente, lo cual puede alterar la integridad de la pieza, por eso debe realizarse después de los ensayos no destructivos. Además, no detecta fallas superficiales o microestructurales, y no indica cómo se comporta el material en servicio, solo su composición química.",
-        "costo": "150 dls",
-        "embedding": null,
-        "recomendacion": "Se recomienda realizar este ensayo si existen dudas sobre la composición del material o si otros ensayos (como el análisis visual o metalográfico) muestran indicios de materiales no habituales. En general, debe realizarse una vez descartadas causas más evidentes y antes de avanzar a ensayos más costosos como el SEM. En este caso, permite confirmar que el material base no fue la causa de la falla, ya que los valores químicos están dentro de los estándares."
-      }
-    },
-    {
-      "id": "4:bd_id:14",
       "labels": [
         "semantic"
       ],
@@ -608,7 +422,7 @@
       }
     },
     {
-      "id": "4:bd_id:15",
+      "id": "4:bd_id:1",
       "labels": [
         "semantic"
       ],
@@ -622,7 +436,7 @@
       }
     },
     {
-      "id": "4:bd_id:16",
+      "id": "4:bd_id:2",
       "labels": [
         "episodic"
       ],
@@ -637,7 +451,7 @@
       }
     },
     {
-      "id": "4:bd_id:41",
+      "id": "4:bd_id:3",
       "labels": [
         "semantic"
       ],
@@ -655,7 +469,7 @@
       }
     },
     {
-      "id": "4:bd_id:42",
+      "id": "4:bd_id:4",
       "labels": [
         "episodic"
       ],
@@ -669,7 +483,7 @@
       }
     },
     {
-      "id": "4:bd_id:43",
+      "id": "4:bd_id:5",
       "labels": [
         "semantic"
       ],
@@ -681,7 +495,7 @@
       }
     },
     {
-      "id": "4:bd_id:47",
+      "id": "4:bd_id:6",
       "labels": [
         "episodic"
       ],
@@ -696,7 +510,7 @@
       }
     },
     {
-      "id": "4:bd_id:48",
+      "id": "4:bd_id:7",
       "labels": [
         "semantic"
       ],
@@ -713,7 +527,7 @@
       }
     },
     {
-      "id": "4:bd_id:49",
+      "id": "4:bd_id:8",
       "labels": [
         "episodic"
       ],
@@ -728,7 +542,7 @@
       }
     },
     {
-      "id": "4:bd_id:50",
+      "id": "4:bd_id:9",
       "labels": [
         "semantic"
       ],
@@ -741,7 +555,7 @@
       }
     },
     {
-      "id": "4:bd_id:51",
+      "id": "4:bd_id:10",
       "labels": [
         "semantic"
       ],
@@ -754,7 +568,7 @@
       }
     },
     {
-      "id": "4:bd_id:52",
+      "id": "4:bd_id:11",
       "labels": [
         "episodic"
       ],
@@ -768,7 +582,7 @@
       }
     },
     {
-      "id": "4:bd_id:53",
+      "id": "4:bd_id:12",
       "labels": [
         "episodic"
       ],
@@ -782,7 +596,7 @@
       }
     },
     {
-      "id": "4:bd_id:54",
+      "id": "4:bd_id:13",
       "labels": [
         "episodic"
       ],
@@ -797,7 +611,7 @@
       }
     },
     {
-      "id": "4:bd_id:55",
+      "id": "4:bd_id:14",
       "labels": [
         "episodic"
       ],
@@ -811,7 +625,7 @@
       }
     },
     {
-      "id": "4:bd_id:56",
+      "id": "4:bd_id:15",
       "labels": [
         "episodic"
       ],
@@ -825,7 +639,7 @@
       }
     },
     {
-      "id": "4:bd_id:57",
+      "id": "4:bd_id:16",
       "labels": [
         "semantic"
       ],
@@ -837,7 +651,7 @@
       }
     },
     {
-      "id": "4:bd_id:58",
+      "id": "4:bd_id:17",
       "labels": [
         "semantic"
       ],
@@ -849,7 +663,7 @@
       }
     },
     {
-      "id": "4:bd_id:59",
+      "id": "4:bd_id:18",
       "labels": [
         "semantic"
       ],
@@ -861,7 +675,7 @@
       }
     },
     {
-      "id": "4:bd_id:60",
+      "id": "4:bd_id:19",
       "labels": [
         "semantic"
       ],
@@ -873,7 +687,7 @@
       }
     },
     {
-      "id": "4:bd_id:61",
+      "id": "4:bd_id:20",
       "labels": [
         "episodic"
       ],
@@ -886,7 +700,7 @@
       }
     },
     {
-      "id": "4:bd_id:62",
+      "id": "4:bd_id:21",
       "labels": [
         "episodic"
       ],
@@ -900,7 +714,7 @@
       }
     },
     {
-      "id": "4:bd_id:63",
+      "id": "4:bd_id:22",
       "labels": [
         "semantic"
       ],
@@ -917,7 +731,7 @@
       }
     },
     {
-      "id": "4:bd_id:64",
+      "id": "4:bd_id:23",
       "labels": [
         "episodic"
       ],
@@ -931,7 +745,7 @@
       }
     },
     {
-      "id": "4:bd_id:65",
+      "id": "4:bd_id:24",
       "labels": [
         "episodic"
       ],
@@ -945,7 +759,7 @@
       }
     },
     {
-      "id": "4:bd_id:66",
+      "id": "4:bd_id:25",
       "labels": [
         "semantic"
       ],
@@ -957,7 +771,7 @@
       }
     },
     {
-      "id": "4:bd_id:67",
+      "id": "4:bd_id:26",
       "labels": [
         "episodic"
       ],
@@ -970,7 +784,7 @@
       }
     },
     {
-      "id": "4:bd_id:68",
+      "id": "4:bd_id:27",
       "labels": [
         "semantic"
       ],
@@ -982,7 +796,7 @@
       }
     },
     {
-      "id": "4:bd_id:69",
+      "id": "4:bd_id:28",
       "labels": [
         "semantic"
       ],
@@ -994,7 +808,7 @@
       }
     },
     {
-      "id": "4:bd_id:70",
+      "id": "4:bd_id:29",
       "labels": [
         "semantic"
       ],
@@ -1003,6 +817,192 @@
         "name": "Botón Inicio",
         "herramienta_individual": "Esta herramienta se debe invocar si el usuario no sabe qué botón presionar para iniciar la indentación y debe invocar se manera paralela: \"boton_inicio_dureza\", es un botón que tiene un ícono de un tenedor.",
         "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:30",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "description": "Es la pantalla donde si visualiza los resultados que se encuentra en la pantalla de la maquina y se encuentra también un monitor con los resultados de los ensayos con métricas como promedios y valores mayores.",
+        "name": "pantalla de resultados",
+        "herramienta_individual": "Esta herramienta se debe invocar si el usuario no sabe dónde mirar para ver el resultado de la dureza y se tiene que activar de manera paralela cuando realiza la explicación: \"highlight_pantalla_resultados\"",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:31",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "description": "Es un botón con forma de peso, este se seleccionará para poder activar la selección de pesos, que va de 5kg en 5kg, además de eso es importante este paso después de aprender a usar las plataformas.",
+        "name": "botón de seleccionar peso",
+        "herramienta_individual": "esta herramienta se debe de invocar cuando el usuario haya terminado de aprender a usar los diales y requiera seleccionar los pesos para el ensayo: \"seleccionar_peso\"",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:32",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "description": "Es el control giratorio ubicado generalmente en el costado derecho del durómetro, conectado a la plataforma. Al girarlo, se desplaza la plataforma y la muestra hacia adelante (horario) y hacia atrás (antihorario) (movimiento en el eje Y). Sirve para el posicionamiento en profundidad preciso.",
+        "name": "Dial lateral",
+        "herramienta_individual": "Esta herramienta se debe invocar si el usuario no sabe cómo utilizar los diales, es decir como mover para adelante o para atras en el eje y, esto debe invocarse de manera paralela: \"animacion_diales_lateral\".",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:33",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería responder que la variación es pequeña o que los valores son consistentes, por ejemplo: 'No hay mucha diferencia''. Si el usuario dice 'no sé' o responde con algo como 'hay una diferencia grande', el tutor debe decir: Observa cuál es el valor más bajo y cuál es el más alto. ¿La diferencia te parece significativa como para pensar que hay un problema en el material?', Importante:  responderle de una forma amigable, además felicitar si responden bien",
+        "pregunta_guia": "¿Puedes observar si hay mucha variación entre los puntos de dureza medidos?",
+        "description": "El usuario debe observar la tabla de dureza y notar si hay mucha variación entre los valores medidos.",
+        "name": "pregunta variación dureza",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:34",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería decir algo como: 'El valor más bajo fue ... y el más alto ...'. Si responde 'no sé', el tutor puede decir: 'Vuelve a mirar la tabla con calma. Busca el número más pequeño y el más grande. ¿Los tienes ahora?' Si responde mal (por ejemplo, fuera del rango real), se debe decir: 'Revisa bien. Asegúrate de mirar todos los puntos antes de responder'.  responderle de una forma amigable, además felicitar si responden bien",
+        "pregunta_guia": "¿Cuál fue el valor más bajo y cuál el más alto en la tabla de dureza?",
+        "description": "Guiar al usuario a identificar con precisión los valores extremos medidos en el ensayo de dureza.",
+        "name": "pregunta min max dureza",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:35",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería responder que sí, por ejemplo: 'Sí, están dentro del rango normal', o 'Sí, coinciden con la hoja técnica'. Si dice 'no sé qué material es', el tutor debe decir: 'Puedes acercarte a la mesa del laboratorio. Ahí está la hoja técnica del material base'. Si dice que no son adecuados sin justificación, responder: '¿Estás comparando con alguna referencia? Asegúrate de usar los datos de la hoja del material para tomar tu decisión'. Importante, responderle de una forma amigable, además felicitar si responden bien",
+        "pregunta_guia": "¿Estos valores te parecen adecuados para el tipo de acero utilizado?",
+        "description": "El usuario debe comparar los valores medidos con los rangos aceptables para el tipo de acero usado.",
+        "name": "pregunta comparación material",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:36",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería responder que no, por ejemplo: 'No, si está en el rango no debería fallar', o 'No creo que esa dureza haya provocado la falla'. Si dice 'sí' o 'no estoy seguro', el tutor puede responder: 'Piensa: una dureza dentro del rango significa que el material cumple con las especificaciones. ¿Crees que eso sería suficiente para provocar una fractura por sí solo?', además decirle que felicitaciones por haber terminado la experiencia con el análisis del material base.",
+        "pregunta_guia": "¿Crees que una dureza dentro de ese rango podría causar una falla en el componente?",
+        "description": "El alumno debe analizar si tener valores de dureza dentro del rango puede haber causado la falla.",
+        "name": "pregunta dureza causa falla",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:37",
+      "labels": [
+        "episodic"
+      ],
+      "properties": {
+        "plan_de_accion_actual": "Voy a guiarle al lugar de ensayos, para ello voy a llamar a la herramienta: \"activar_camino_quimico\", esto me mostrará un camino donde el usuario tendrá que seguir para llegar a la maquina química.\nSi el usuario me habla sobre el ensayo y por mi inferencia puedo responderle entonces  lo hago, en caso no puedo responderle por mi inferencia al nodo *SEMANTICO* con la query: \"Ensayo químico\", este nos brindará más información sobre el ensayo a realizar, esperamos que le usuario nos confirme que llego al lugar.\n",
+        "description": "El usuario ha elegido el ensayo quimico",
+        "name": "El usuario ha elegido el ensayo químico",
+        "resultado": "MUY POSITIVO",
+        "plan_de_acción_futuro": "Si el usuario pide información de las tareas que se tienen en el ensayo de análisis químico, le diré que revisaremos cada una cuando llegue el momento. \nSi el usuario me pide información general acerca del análisis químico que puede ser respondida con mi inferencia, puedo responderle con mi conocimiento general, no es necesario que realice una búsqueda. Si me habla de otra cosa que no sea del ensayo químico, puedo usar mi inferencia general para entretener al usuario mientras llegamos al lugar del ensayo, pero siempre le tendré que decir que no se olvide que siga las flechas para empezar con el ensayo químico. \nCuando el usuario me dice que ya llego a la ubicación donde se realizará el ensayo de análisis químico, voy a hacer a buscar en mi memoria *EPISODICA* con el query: \"El usuario ya llego al lugar donde se realizará el ensayo químico\", para saber como proceder",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:38",
+      "labels": [
+        "episodic"
+      ],
+      "properties": {
+        "plan_de_accion_actual": "Voy a decirle al usuario que ya estamos en la maquina química. Le mencionaré que la muestra ya está preparada para este ensayo. Lo siguiente es que debe colocar la pieza en la plataforma de la máquina. Para ayudarlo, voy a resaltar la zona correcta en la plataforma Invoco herramienta: \"señalar_posicion_de_muestra_quimica\". Le pediré que agarre la pieza, la coloque ahí y me avise cuando termine. Después esperaré su siguiente input donde me confirme que ha colocado la pieza",
+        "description": "El usuario ya llego al lugar donde se realizará el ensayo quimico",
+        "name": "Llegó al lugar de análisis quimico",
+        "resultado": "muy bueno",
+        "plan_de_acción_futuro": "Si el usuario dice que no sabe como agarrar la pieza, lo ayudo mostrándole una animación que indica el botón del mando que se debe utilizar para agarrar Invoco herramienta: \"mostrar_mando_coger\".\nSi el usuario me pregunta sobre la preparación de la muestra para la máquina quimica, le confirmo que ya está lista y que nos podemos concentrar en usar la máquina.\nCuando el usuario me diga que ya colocó la pieza en la plataforma, haré una búsqueda en la memoria *EPISODICA* con el siguiente query: \"Listo para aprender a utilizar la maquina química\", para saber cómo proceder.",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:39",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería decir algo como: 'Sí, parecen normales' o 'Sí, no hay valores extraños', el objetivo es que los valores si coincidan o se parezcan a los valores por norma del material. Si dice 'no sé', el tutor puede responder algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar las respuestas, 1.4): 'Recuerda que un acero para bielas suele tener algo de carbono, cromo, manganeso… si ninguno está exageradamente alto, probablemente está bien', vuelve a repreguntar: ¿Te parece que los valores observados están dentro de los rangos normales? y por qué?",
+        "pregunta_guia": "¿Te parece que los valores observados están dentro de los rangos normales para un acero utilizado en componentes mecánicos?",
+        "description": "Llevar al usuario a pensar si los valores están dentro de un rango esperado para un acero de aplicación mecánica.",
+        "name": "preguntas comparar valores",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:40",
+      "labels": [
+        "episodic"
+      ],
+      "properties": {
+        "plan_de_accion_actual": "Después de colocar la pieza en la plataforma, debo de enseñar a activar la máquina química, mediante un botón. para poder enseñar necesito activar la herramienta \"animacion_boton_quimica\" para mostrarte exactamente cómo funciona. Ese será el único paso importante en el proceso.",
+        "description": "Empezar a aprender a utilizar la maquina química",
+        "name": "Listo para aprender a utilizar la maquina química",
+        "resultado": "MUY POSITIVO",
+        "plan_de_acción_futuro": "Una vez que el usuario haya colocado la pieza, lo guiaré paso a paso por el resto del flujo. Este incluirá:\n\n- Enseñarle cómo activar la maquina química es por eso que se debe de presionar el botón y activar la tool: animacion_boton_quimica\n- Indicar al usuario que debe hacer el ensayo por almenos 3 veces.\n- Preguntar al usuario: ¿Puedes mencionar al menos tres de los elementos que estén más involucrados con la dureza del material, y como les afecta?\n- Preguntar al usuario: ¿Te parece que los valores observados están dentro de los rangos normales para un acero utilizado en componentes mecánicos?\n- decir al usuario como pregunta final: Entonces dime… ¿crees que el problema está en la composición química del material base?\n\nRecuerda guiar al usuario hacia la respuesta, para que lo diga si en casos e equivoca, mas de 2 veces decirle la respuesta con una explicación. Si no llega a esta conclusión, debes orientarlo sin decirle la respuesta., recuerda seguir esta secuencia y felicitar y motivar si es que responde bien cada una de las preguntas. Importante si el usuario se equivoca, guiarle a la respuesta, no decirle la respuesta directamente.",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:41",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería mencionar elementos como el Carbono, Cromo, Molibdeno, Manganeso o Silicio, y relacionarlos con sus efectos en la dureza. Ejemplo de una buena respuesta: 'El carbono aumenta la dureza, el cromo mejora el desgaste y el molibdeno evita la fragilidad térmica'. Si el usuario responde 'no sé' o menciona elementos incorrectos el tutor debe decir algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar los elementos, 1.4): 'No te preocupes, puedes revisar la tabla del análisis químico que está sobre la mesa y menciones que elementos crees que están involucrados. y yo te ayudare uno por uno con definiciones, pero necesito que al menos me des una hipótesis del elemento.",
+        "pregunta_guia": "¿Puedes mencionar al menos tres de los elementos que estén más involucrados con la dureza del material, y cómo les afecta?",
+        "description": "Guiar al usuario a identificar y relacionar al menos tres elementos químicos presentes en la composición del acero que influyen directamente en su dureza.",
+        "name": "preguntas elementos dureza",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:42",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "respuesta_esperada": "El usuario debería decir: 'No, la composición parece adecuada' Si dice que sí o duda, el tutor debe responder algo similar (modificar la respuesta segun el contexto de la conversación, nunca responder igual, tampoco mencionar las respuestas, 1.4):: 'Recuerda que no encontramos anomalías en la composición. ¿Cual elemento crees que causa conflicto en la composición del material base?'además decirle que felicitaciones por haber terminado la experiencia con el análisis del material base.",
+        "pregunta_guia": "Entonces dime… ¿crees que el problema está en la composición química del material base?",
+        "description": "El usuario debe concluir que el material base no tiene problemas de composición, y que la falla viene de otro factor.",
+        "name": "conclusión material base composición",
+        "embedding": null
+      }
+    },
+    {
+      "id": "4:bd_id:43",
+      "labels": [
+        "semantic"
+      ],
+      "properties": {
+        "objetivo_general": "El objetivo principal es determinar la composición química del material de la biela. Esto incluye verificar si los porcentajes de elementos como carbono, manganeso, cromo, silicio, molibdeno., se encuentran dentro de los rangos establecidos para el tipo de acero especificado. También ayuda a descartar si la falla fue provocada por el uso de un material inadecuado o por una aleación mal controlada.",
+        "tiempo_ejecucion": "15  a 20 minutos",
+        "tipo_ensayo": "Destructivo (por ataque químico)",
+        "description": "Contiene toda la información relacionada al análisis químico del material. Este ensayo, generalmente destructivo, permite identificar la composición elemental del componente metálico (como %C, %Mn, %Cr, Mo, Si.). Es esencial para validar si el material utilizado corresponde al especificado por el fabricante y cumple con los estándares técnicos para su función estructural.",
+        "name": "Ensayo quimico",
+        "limitaciones": "Requiere extracción de una muestra del componente, lo cual puede alterar la integridad de la pieza, por eso debe realizarse después de los ensayos no destructivos. Además, no detecta fallas superficiales o microestructurales, y no indica cómo se comporta el material en servicio, solo su composición química.",
+        "costo": "150 dls",
+        "embedding": null,
+        "recomendacion": "Se recomienda realizar este ensayo si existen dudas sobre la composición del material o si otros ensayos (como el análisis visual o metalográfico) muestran indicios de materiales no habituales. En general, debe realizarse una vez descartadas causas más evidentes y antes de avanzar a ensayos más costosos como el SEM. En este caso, permite confirmar que el material base no fue la causa de la falla, ya que los valores químicos están dentro de los estándares."
       }
     }
   ]
