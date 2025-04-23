@@ -8,6 +8,11 @@
       "name": "pajarito_naranja_volando.jpg",
       "file": "pajarito_naranja_volando.jpg",
       "description": "El pajarito naranja en pleno vuelo, alas extendidas."
+    },
+    {
+      "name": "tutoriallab.png",
+      "file": "tutoriallab.png",
+      "description": "Imagen para tutorial del laboratorio genai."
     }
   ]
   
