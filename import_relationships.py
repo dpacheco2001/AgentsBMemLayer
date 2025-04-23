@@ -39,7 +39,7 @@ def clean_database(driver):
         print(f"❌ Failed to clean database: {str(e)}")
         return False
 
-def export_database(driver, output_file):
+def export_database(driver, output_file, bd_id=None):
     """Export all nodes and relationships from the database to a JSON file"""
     try:
         with driver.session() as session:
@@ -85,6 +85,91 @@ def export_database(driver, output_file):
             
             if record and record["resultado"]:
                 data = record["resultado"]
+                
+                # Always apply ID formatting
+                print(f"🔄 Reemplazando IDs con 'bd_id'")
+                
+                # Create a mapping of original IDs to new IDs
+                id_mapping = {}
+                
+                # Format node IDs with "bd_id"
+                for i, node in enumerate(data.get('nodos', [])):
+                    if 'id' in node:
+                        original_id = node['id']
+                        # Use a simple format: node_type:bd_id:index
+                        # Extract the node type from the original ID (first part before colon)
+                        if ':' in original_id:
+                            parts = original_id.split(':')
+                            if len(parts) >= 3:
+                                first_part = parts[0]
+                                last_part = parts[-1]
+                                new_id = f"{first_part}:bd_id:{last_part}"
+                                
+                                # Store the mapping
+                                id_mapping[original_id] = new_id
+                                
+                                # Apply the new ID
+                                old_id = node['id']
+                                node['id'] = new_id
+                                print(f"Node ID changed: {old_id} -> {new_id}")
+                        else:
+                            print(f"Warning: Node ID doesn't have expected format: {original_id}")
+                
+                # Process relationships
+                for i, rel in enumerate(data.get('relaciones', [])):
+                    # Process relationship ID
+                    if 'id' in rel:
+                        original_id = rel['id']
+                        if ':' in original_id:
+                            parts = original_id.split(':')
+                            if len(parts) >= 3:
+                                first_part = parts[0]
+                                last_part = parts[-1]
+                                new_id = f"{first_part}:bd_id:{last_part}"
+                                old_id = rel['id']
+                                rel['id'] = new_id
+                                print(f"Rel ID changed: {old_id} -> {new_id}")
+                        else:
+                            print(f"Warning: Rel ID doesn't have expected format: {original_id}")
+                    
+                    # Process origen ID using the mapping
+                    if 'origen' in rel:
+                        original_origen = rel['origen']
+                        if original_origen in id_mapping:
+                            old_id = rel['origen']
+                            rel['origen'] = id_mapping[original_origen]
+                            print(f"Origen ID changed: {old_id} -> {rel['origen']}")
+                        else:
+                            # Direct replacement if not in mapping
+                            if ':' in original_origen:
+                                parts = original_origen.split(':')
+                                if len(parts) >= 3:
+                                    first_part = parts[0]
+                                    last_part = parts[-1]
+                                    rel['origen'] = f"{first_part}:bd_id:{last_part}"
+                                    print(f"Origen ID direct changed: {original_origen} -> {rel['origen']}")
+                            else:
+                                print(f"Warning: No mapping found for origen: {original_origen}")
+                                
+                    # Process destino ID using the mapping
+                    if 'destino' in rel:
+                        original_destino = rel['destino']
+                        if original_destino in id_mapping:
+                            old_id = rel['destino']
+                            rel['destino'] = id_mapping[original_destino]
+                            print(f"Destino ID changed: {old_id} -> {rel['destino']}")
+                        else:
+                            # Direct replacement if not in mapping
+                            if ':' in original_destino:
+                                parts = original_destino.split(':')
+                                if len(parts) >= 3:
+                                    first_part = parts[0]
+                                    last_part = parts[-1]
+                                    rel['destino'] = f"{first_part}:bd_id:{last_part}"
+                                    print(f"Destino ID direct changed: {original_destino} -> {rel['destino']}")
+                            else:
+                                print(f"Warning: No mapping found for destino: {original_destino}")
+                
                 with open(output_file, 'w', encoding='utf-8') as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
                 print(f"✅ Database exported successfully to {output_file}")
@@ -233,6 +318,95 @@ def extract_data(data):
     # Fallback
     return data
 
+def process_ids_with_bd_id(data, bd_id=None):
+    """Replace IDs with bd_id format"""
+    print(f"🔄 Replacing IDs with 'bd_id'")
+    
+    # Create a mapping of original IDs to new IDs
+    id_mapping = {}
+    
+    # Process nodes
+    if "nodos" in data:
+        for i, node in enumerate(data["nodos"]):
+            if "id" in node:
+                original_id = node["id"]
+                # Use a simple format: node_type:bd_id:index
+                # Extract the node type from the original ID (first part before colon)
+                if ':' in original_id:
+                    parts = original_id.split(':')
+                    if len(parts) >= 3:
+                        first_part = parts[0]
+                        last_part = parts[-1]
+                        new_id = f"{first_part}:bd_id:{last_part}"
+                        
+                        # Store the mapping
+                        id_mapping[original_id] = new_id
+                        
+                        # Apply the new ID
+                        old_id = node["id"]
+                        node["id"] = new_id
+                        print(f"Node ID changed: {old_id} -> {new_id}")
+                else:
+                    print(f"Warning: Node ID doesn't have expected format: {original_id}")
+    
+    # Process relationships
+    if "relaciones" in data:
+        for i, rel in enumerate(data["relaciones"]):
+            # Process relationship ID
+            if "id" in rel:
+                original_id = rel["id"]
+                if ':' in original_id:
+                    parts = original_id.split(':')
+                    if len(parts) >= 3:
+                        first_part = parts[0]
+                        last_part = parts[-1]
+                        new_id = f"{first_part}:bd_id:{last_part}"
+                        old_id = rel["id"]
+                        rel["id"] = new_id
+                        print(f"Rel ID changed: {old_id} -> {new_id}")
+                else:
+                    print(f"Warning: Rel ID doesn't have expected format: {original_id}")
+            
+            # Process origen ID using the mapping
+            if "origen" in rel:
+                original_origen = rel["origen"]
+                if original_origen in id_mapping:
+                    old_id = rel["origen"]
+                    rel["origen"] = id_mapping[original_origen]
+                    print(f"Origen ID changed: {old_id} -> {rel['origen']}")
+                else:
+                    # Direct replacement if not in mapping
+                    if ':' in original_origen:
+                        parts = original_origen.split(':')
+                        if len(parts) >= 3:
+                            first_part = parts[0]
+                            last_part = parts[-1]
+                            rel["origen"] = f"{first_part}:bd_id:{last_part}"
+                            print(f"Origen ID direct changed: {original_origen} -> {rel['origen']}")
+                    else:
+                        print(f"Warning: No mapping found for origen: {original_origen}")
+                    
+            # Process destino ID using the mapping
+            if "destino" in rel:
+                original_destino = rel["destino"]
+                if original_destino in id_mapping:
+                    old_id = rel["destino"]
+                    rel["destino"] = id_mapping[original_destino]
+                    print(f"Destino ID changed: {old_id} -> {rel['destino']}")
+                else:
+                    # Direct replacement if not in mapping
+                    if ':' in original_destino:
+                        parts = original_destino.split(':')
+                        if len(parts) >= 3:
+                            first_part = parts[0]
+                            last_part = parts[-1]
+                            rel["destino"] = f"{first_part}:bd_id:{last_part}"
+                            print(f"Destino ID direct changed: {original_destino} -> {rel['destino']}")
+                    else:
+                        print(f"Warning: No mapping found for destino: {original_destino}")
+    
+    return data
+
 def main():
     parser = argparse.ArgumentParser(description="Import/export nodes and relationships between JSON and Neo4j")
     
@@ -242,6 +416,7 @@ def main():
     # Import command
     import_parser = subparsers.add_parser("import", help="Import data from JSON to Neo4j")
     import_parser.add_argument("json_file", help="Path to JSON file containing nodes and/or relationships")
+    import_parser.add_argument("bd_id", nargs="?", help="Database ID to use in node and relationship IDs")
     import_parser.add_argument("--dry-run", action="store_true", help="Print queries without executing them")
     import_parser.add_argument("--nodes-only", action="store_true", help="Import only nodes, ignore relationships")
     import_parser.add_argument("--relationships-only", action="store_true", help="Import only relationships, ignore nodes")
@@ -250,8 +425,12 @@ def main():
     # Export command
     export_parser = subparsers.add_parser("export", help="Export data from Neo4j to JSON")
     export_parser.add_argument("output_file", help="Path to save the exported JSON data")
+    export_parser.add_argument("bd_id", nargs="?", help="Database ID to use in node and relationship IDs")
     
     args = parser.parse_args()
+    
+    # Print received arguments for debugging
+    print(f"🔍 Command: {args.command}, Arguments: {vars(args)}")
     
     # Default to import command if no command is specified (for backward compatibility)
     if args.command is None:
@@ -262,6 +441,9 @@ def main():
             args.nodes_only = "--nodes-only" in sys.argv
             args.relationships_only = "--relationships-only" in sys.argv
             args.no_clean = "--no-clean" in sys.argv
+            # Try to extract bd_id if present
+            bd_id_args = [arg for arg in sys.argv[2:] if not arg.startswith("--")]
+            args.bd_id = bd_id_args[0] if bd_id_args else None
         else:
             parser.print_help()
             sys.exit(1)
@@ -271,7 +453,8 @@ def main():
     
     if args.command == "export":
         # Export database to JSON file
-        if export_database(driver, args.output_file):
+        print(f"🔍 Exporting with bd_id: {args.bd_id}")
+        if export_database(driver, args.output_file, args.bd_id):
             print("✅ Export completed successfully")
         else:
             print("❌ Export failed")
@@ -282,6 +465,11 @@ def main():
         
         # Extract data from the specific JSON structure
         data = extract_data(raw_data)
+        
+        # Process IDs with bd_id if provided
+        if args.bd_id:
+            data = process_ids_with_bd_id(data, args.bd_id)
+            print(f"🔄 Replaced IDs with bd_id: {args.bd_id}")
         
         # Clean database if not in dry-run mode and --no-clean not specified
         if not args.dry_run and not args.no_clean:
