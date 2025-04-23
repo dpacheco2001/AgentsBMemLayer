@@ -222,13 +222,10 @@ def create_node(driver, node):
     if labels_str:
         labels_str = ":" + labels_str
     
-    # Set the original ID as a property
-    propiedades["original_id"] = node_id
-    
     # Query to create node
     query = (
         "CREATE (n" + labels_str + " $propiedades) "
-        "RETURN ID(n) as nodeId"
+        "RETURN elementId(n) as nodeId"
     )
     
     try:
@@ -239,12 +236,13 @@ def create_node(driver, node):
             )
             record = result.single()
             if record:
+                # Crear un índice en memoria para mapear IDs originales a IDs internos de Neo4j
                 return {"success": True, "nodeId": record["nodeId"], "original_id": node_id}
             return {"success": False, "error": "No node created"}
     except Exception as e:
         return {"success": False, "error": str(e), "original_id": node_id}
 
-def create_relationship(driver, relationship):
+def create_relationship(driver, relationship, node_mapping):
     """Create a relationship in Neo4j database"""
     origen = relationship.get("origen")
     destino = relationship.get("destino")
@@ -263,15 +261,17 @@ def create_relationship(driver, relationship):
     if None in [origen, destino, tipo]:
         return {"error": "Missing required fields: origen, destino, or tipo"}
     
-    # Set the original ID as a property
-    if rel_id:
-        propiedades["original_id"] = rel_id
+    # Obtener los IDs internos de Neo4j para los nodos origen y destino
+    if origen not in node_mapping or destino not in node_mapping:
+        return {"error": f"Node mapping not found for origen={origen} or destino={destino}"}
     
-    # La diferencia está aquí: generamos la consulta con el tipo directamente en el string
-    # en lugar de usar un parámetro
+    origen_interno = node_mapping[origen]
+    destino_interno = node_mapping[destino]
+    
+    # Query usando los IDs internos de Neo4j directamente
     query = (
         "MATCH (a), (b) "
-        "WHERE a.original_id = $origen AND b.original_id = $destino "
+        "WHERE elementId(a) = $origen_interno AND elementId(b) = $destino_interno "
         f"CREATE (a)-[r:{tipo} $propiedades]->(b) "
         "RETURN elementId(r) as relId"
     )
@@ -280,8 +280,8 @@ def create_relationship(driver, relationship):
         with driver.session() as session:
             result = session.run(
                 query, 
-                origen=origen, 
-                destino=destino, 
+                origen_interno=origen_interno,
+                destino_interno=destino_interno, 
                 propiedades=propiedades
             )
             record = result.single()
@@ -479,6 +479,9 @@ def main():
         elif args.dry_run:
             print("🔍 DRY RUN MODE - No changes will be made to the database")
         
+        # Mapeo de IDs originales a IDs internos de Neo4j
+        node_mapping = {}
+        
         # Import nodes if present and not in relationships-only mode
         if "nodos" in data and not args.relationships_only:
             nodes = data.get("nodos", [])
@@ -508,6 +511,8 @@ def main():
                     
                     if result.get("success", False):
                         node_results["success"] += 1
+                        # Almacenar el mapeo de ID original a ID interno de Neo4j
+                        node_mapping[node.get('id')] = result['nodeId']
                         print(f"✅ Created node with ID: {result['nodeId']} (Original ID: {node.get('id')})")
                     else:
                         node_results["failed"] += 1
@@ -555,7 +560,7 @@ def main():
                         print(f"Would create: {rel_copy['origen']} -[:{rel_copy['tipo']}]-> {rel_copy['destino']}")
                         continue
                     
-                    result = create_relationship(driver, rel)
+                    result = create_relationship(driver, rel, node_mapping)
                     
                     if result.get("success", False):
                         rel_results["success"] += 1
