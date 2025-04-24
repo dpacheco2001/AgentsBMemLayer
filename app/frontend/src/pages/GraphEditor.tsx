@@ -583,6 +583,84 @@ const GraphEditor = () => {
                     ? "Cancel Relationship Mode"
                     : "Create Relationship"}
                 </Button>
+
+                {/* Botones para copiar y pegar nodos */}
+                <div className="flex space-x-2 mt-2">
+                  <Button
+                    variant="outline"
+                    className="w-1/2 justify-start"
+                    onClick={() => {
+                      if (!selectedNode) {
+                        toast.error("Select a node to copy first");
+                        return;
+                      }
+
+                      // Guardar el nodo en localStorage directamente
+                      try {
+                        const nodeToStore = { ...selectedNode };
+                        delete nodeToStore.x;
+                        delete nodeToStore.y;
+
+                        localStorage.setItem(
+                          "copiedNode",
+                          JSON.stringify(nodeToStore)
+                        );
+                        toast.success("Node copied to clipboard (persisted)");
+                      } catch (error) {
+                        console.error(
+                          "Error saving node to localStorage:",
+                          error
+                        );
+                        toast.error("Could not persist node copy");
+                      }
+                    }}
+                    disabled={!selectedNode}
+                  >
+                    Copy Node
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-1/2 justify-start"
+                    onClick={() => {
+                      // Verificar si hay un nodo guardado en localStorage
+                      try {
+                        const storedNode = localStorage.getItem("copiedNode");
+                        if (storedNode) {
+                          // Simular presionar Ctrl+V para activar el evento
+                          const event = new KeyboardEvent("keydown", {
+                            key: "v",
+                            ctrlKey: true,
+                            bubbles: true,
+                          });
+                          document.dispatchEvent(event);
+                        } else {
+                          toast.error("No node available to paste");
+                        }
+                      } catch (error) {
+                        console.error(
+                          "Error checking localStorage for node:",
+                          error
+                        );
+                        toast.error("Error checking for saved nodes");
+                      }
+                    }}
+                  >
+                    Paste Node
+                  </Button>
+                </div>
+
+                {/* Información sobre copiar y pegar */}
+                <p className="text-xs text-muted-foreground mt-1 border-t border-brain-secondary pt-2">
+                  <span className="font-medium">Keyboard shortcuts:</span>
+                  <br />
+                  Ctrl+C: Copy selected node
+                  <br />
+                  Ctrl+V: Paste copied node
+                  <br />
+                  <span className="italic">
+                    Copied nodes persist between sessions
+                  </span>
+                </p>
               </div>
             </TabsContent>
 
