@@ -1,18 +1,27 @@
 [
-    {
-      "name": "pajarito_naranja.jpg",
-      "file": "pajarito_naranja.jpg",
-      "description": "Un pequeño pajarito de plumaje naranja brillante posado sobre una rama."
-    },
-    {
-      "name": "pajarito_naranja_volando.jpg",
-      "file": "pajarito_naranja_volando.jpg",
-      "description": "El pajarito naranja en pleno vuelo, alas extendidas."
-    },
-    {
-      "name": "tutoriallab.png",
-      "file": "tutoriallab.png",
-      "description": "Imagen para tutorial del laboratorio genai."
-    }
-  ]
-  
+  {
+    "name": "pajarito_naranja.jpg",
+    "file": "pajarito_naranja.jpg",
+    "description": "Un pequeño pajarito de plumaje naranja brillante posado sobre una rama."
+  },
+  {
+    "name": "pajarito_naranja_volando.jpg",
+    "file": "pajarito_naranja_volando.jpg",
+    "description": "El pajarito naranja en pleno vuelo, alas extendidas."
+  },
+  {
+    "name": "tutoriallab.png",
+    "file": "tutoriallab.png",
+    "description": "Imagen para tutorial del laboratorio genai."
+  },
+  {
+    "name": "corte_correcto.png",
+    "file": "corte_correcto.png",
+    "description": "Imagen de referencia del corte correcto a través del canal de lubricación, utilizada cuando el estudiante se equivoca en el trazo."
+  },
+  {
+    "name": "lineas_playa.png",
+    "file": "lineas_playa.png",
+    "description": "Esquema ilustrativo que muestra líneas radiales (tipo ‘líneas de playa’) que se propagan desde un canal de lubricación, utilizado para ayudar al estudiante a visualizar la fractura por fatiga."
+  }
+]
