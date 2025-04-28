@@ -34,7 +34,7 @@ This research repository demonstrates a sophisticated AI agent system with persi
 
 ### Prerequisites
 - Python 3.11.5+
-- Node.js 16+
+- Node.js 22+
 - Neo4j Database (local or cloud instance)
 
 ### Backend Setup

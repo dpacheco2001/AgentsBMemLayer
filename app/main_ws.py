@@ -92,7 +92,7 @@ def run_frontend():
     )
 
 # -------------------- Endpoints REST --------------------
-USE_LOCAL = True #Lo utilizamos paraaa saber si usar el crawler o no, donde true es usar local y false es usar el crawler
+USE_LOCAL = False #Lo utilizamos paraaa saber si usar el crawler o no, donde true es usar local y false es usar el crawler
 METADATA_PATH = os.getenv("METADATA_PATH", "metadata.json") # Ruta al archivo de metadatos
 LOCAL_DIR = os.getenv("LOCAL_DIR", "images") # Ruta al directorio local donde se guardan las imágenes
 
