@@ -789,18 +789,52 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
       (node) => node.elementId === elementId
     );
     if (nodeToCopy) {
+      // Guardar el nodo en el estado de React
       setCopiedNode(nodeToCopy);
-      toast.success("Node copied to clipboard");
+
+      // Guardar el nodo en localStorage para persistencia entre sesiones
+      try {
+        // Eliminar propiedades que no queremos persistir
+        const nodeToStore = { ...nodeToCopy };
+        delete nodeToStore.x;
+        delete nodeToStore.y;
+
+        // Guardar en localStorage
+        localStorage.setItem("copiedNode", JSON.stringify(nodeToStore));
+        toast.success("Node copied to clipboard (persisted)");
+      } catch (error) {
+        console.error("Error saving node to localStorage:", error);
+        toast.error("Could not persist node copy");
+      }
     }
   };
 
   // Función para pegar un nodo copiado
   const handlePasteNode = async () => {
-    if (!copiedNode || !executeQuery) return;
+    // Intentar recuperar el nodo del localStorage si no está en el estado
+    let nodeToPaste = copiedNode;
+
+    if (!nodeToPaste) {
+      try {
+        const storedNode = localStorage.getItem("copiedNode");
+        if (storedNode) {
+          nodeToPaste = JSON.parse(storedNode);
+          // Actualizar también el estado
+          setCopiedNode(nodeToPaste);
+        }
+      } catch (error) {
+        console.error("Error loading node from localStorage:", error);
+      }
+    }
+
+    if (!nodeToPaste || !executeQuery) {
+      toast.error("No node available to paste");
+      return;
+    }
 
     try {
       // Creamos una copia de las propiedades del nodo original
-      const nodeProperties = { ...copiedNode };
+      const nodeProperties = { ...nodeToPaste };
 
       // Eliminamos propiedades que no queremos copiar
       delete nodeProperties.elementId;
@@ -817,13 +851,13 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
       // Obtenemos la lista de relaciones asociadas al nodo original
       const relatedLinks = linksToRender.filter(
         (link) =>
-          link.source === copiedNode.elementId ||
-          link.target === copiedNode.elementId
+          link.source === nodeToPaste.elementId ||
+          link.target === nodeToPaste.elementId
       );
 
       // Crear el nodo en la base de datos usando el executeQuery
       const payload = {
-        labels: copiedNode.labels || [],
+        labels: nodeToPaste.labels || [],
         properties: Object.entries(nodeProperties)
           .filter(([key]) => !["labels"].includes(key))
           .reduce((acc, [key, value]) => {
@@ -847,34 +881,38 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
 
       const newNodeId = result.elementId || newNode.elementId;
 
-      // Posicionamos el nuevo nodo cerca del nodo original
+      // Posicionamos el nuevo nodo cerca del centro visible o en una posición aleatoria
       const offsetX = 50 + Math.random() * 30;
       const offsetY = 50 + Math.random() * 30;
 
-      if (nodePositions[copiedNode.elementId]) {
-        const newPositions = {
-          ...positionsRef.current,
-          [newNodeId]: {
-            x: nodePositions[copiedNode.elementId].x + offsetX,
-            y: nodePositions[copiedNode.elementId].y + offsetY,
-          },
-        };
+      // Preferimos posicionar cerca del nodo original si tenemos sus coordenadas
+      const startX =
+        nodePositions[nodeToPaste.elementId]?.x || window.innerWidth / 2;
+      const startY =
+        nodePositions[nodeToPaste.elementId]?.y || window.innerHeight / 2;
 
-        setNodePositions((prev) => ({
-          ...prev,
-          ...newPositions,
-        }));
+      const newPositions = {
+        ...positionsRef.current,
+        [newNodeId]: {
+          x: startX + offsetX,
+          y: startY + offsetY,
+        },
+      };
 
-        // Actualizar también la referencia permanente
-        positionsRef.current = newPositions;
+      setNodePositions((prev) => ({
+        ...prev,
+        ...newPositions,
+      }));
 
-        // Guardar en localStorage
-        savePositionsToLocalStorage(newPositions);
-      }
+      // Actualizar también la referencia permanente
+      positionsRef.current = newPositions;
+
+      // Guardar en localStorage
+      savePositionsToLocalStorage(newPositions);
 
       // Crear las mismas relaciones para el nuevo nodo
       for (const link of relatedLinks) {
-        const isSource = link.source === copiedNode.elementId;
+        const isSource = link.source === nodeToPaste.elementId;
         const relationshipPayload = {
           source: isSource ? newNodeId : link.source,
           target: isSource ? link.target : newNodeId,
@@ -914,15 +952,33 @@ const GraphVisualization: React.FC<GraphVisualizationProps> = ({
       }
 
       // Pegar nodo (Ctrl+V)
-      if (e.ctrlKey && e.key === "v" && copiedNode) {
+      if (e.ctrlKey && e.key === "v") {
         e.preventDefault();
-        handlePasteNode();
+        // Verificar si hay un nodo en memoria o en localStorage
+        if (copiedNode) {
+          handlePasteNode();
+        } else {
+          // Verificar si hay un nodo guardado en localStorage
+          try {
+            const storedNode = localStorage.getItem("copiedNode");
+            if (storedNode) {
+              // Si hay un nodo en localStorage, llamar a handlePasteNode
+              // que leerá el nodo de localStorage
+              handlePasteNode();
+            } else {
+              toast.error("No node available to paste");
+            }
+          } catch (error) {
+            console.error("Error checking localStorage for node:", error);
+            toast.error("Error checking for saved nodes");
+          }
+        }
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedNodeId, copiedNode]);
 
